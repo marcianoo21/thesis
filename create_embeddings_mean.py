@@ -3,7 +3,6 @@ import time
 from typing import Optional, List
 from embedding_model import ModelMeanPooling
 
-# ---------- Ustawienia ----------
 INPUT_FILE = "output_files/lodz_restaurants_cafes_emb_input.jsonl"
 OUTPUT_FILE = "output_files/lodz_restaurants_cafes_embeddings_mean.jsonl"
 
@@ -16,7 +15,6 @@ POOLING_STRATEGY = "mean"  # zmień na "cls" dla CLS poolingu
 # Wymiar embeddingów dla modelu
 WORD_EMBEDDING_DIMENSION = 1024
 
-# ---------- Inicjalizacja modelu ----------
 print("Ładowanie modelu embeddingów:", EMBED_MODEL_NAME)
 print(f"Pooling strategy: {POOLING_STRATEGY}")
 model = ModelMeanPooling(
@@ -51,7 +49,6 @@ def build_rich_record(rec: dict) -> dict:
     }
 
 
-# ---------- Główna pętla ----------
 def main():
     cnt = 0
     with open(INPUT_FILE, "r", encoding="utf-8") as fin, \

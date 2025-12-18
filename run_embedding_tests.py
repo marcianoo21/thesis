@@ -18,7 +18,7 @@ def run_tests(test_mode="rag"):
         print("Brak HF_TOKEN! Ustaw token w .env")
         return
 
-    # Jawnie mapujemy pooling -> plik
+    # mapuje pooling -> plik
     embedding_files = {
         "mean": "output_files/lodz_restaurants_cafes_embeddings_mean.jsonl",
         "cls": "output_files/lodz_restaurants_cafes_embeddings_cls.jsonl"
@@ -51,7 +51,6 @@ def run_tests(test_mode="rag"):
         try:
             start_time = time.time()
 
-            # 🔑 KLUCZOWA ZMIANA – przekazujemy pooling_type
             rag_chain, _ = create_rag_system(
                 embeddings_file=file_path,
                 pooling_type=pooling_type
