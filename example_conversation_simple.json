@@ -1,0 +1,32 @@
+[
+  {
+    "role": "user",
+    "content": "Szukam dobrej kawiarni blisko centrum",
+    "timestamp": "2025-12-04T21:33:42.825867"
+  },
+  {
+    "role": "assistant",
+    "content": "Na podstawie Twojego zapytania znalazłem kilka świetnych opcji:\n\nZnalezione restauracje:\n\n1. **Caffe Przy Ulicy**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.771\n\n2. **Drukarnia**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.743\n\n3. **Kofeina**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.739\n\n4. **Cukiernia Sowa**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.738\n\n5. **Poczekalnia**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.736\n\n\n\nKtórą z tych restauracji chciałbyś poznać bliżej?",
+    "timestamp": "2025-12-04T21:33:43.021891"
+  },
+  {
+    "role": "user",
+    "content": "Coś z sushi?",
+    "timestamp": "2025-12-04T21:33:43.022487"
+  },
+  {
+    "role": "assistant",
+    "content": "Dzięki za pytanie! Znalezione restauracje:\n\n1. **Sushi Kushi**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.779\n\n2. **Sushi Kushi**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.777\n\n3. **Susharnia**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.753\n\n4. **Biesiadowo**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.736\n\n5. **Bawełna**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.734\n\n\n\nCzy mogę Ci jeszcze w czymś pomóc?",
+    "timestamp": "2025-12-04T21:33:43.210482"
+  },
+  {
+    "role": "user",
+    "content": "Ile to kosztuje?",
+    "timestamp": "2025-12-04T21:33:43.211047"
+  },
+  {
+    "role": "assistant",
+    "content": "Dzięki za pytanie! Znalezione restauracje:\n\n1. **Bawełna**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.736\n\n2. **Spółdzielnia**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.729\n\n3. **Drukarnia**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.727\n\n4. **Impresja**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.726\n\n5. **Polka**\n   Typ: None\n   Adres: brak\n   Ocena: Brak oceny\n   Dopasowanie: 0.724\n\n\n\nCzy mogę Ci jeszcze w czymś pomóc?",
+    "timestamp": "2025-12-04T21:33:43.464893"
+  }
+]

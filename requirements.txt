@@ -1,0 +1,5 @@
+transformers
+torch
+faiss-cpu
+pandas
+python-dotenv
