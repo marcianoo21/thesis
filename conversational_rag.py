@@ -9,6 +9,11 @@ import json
 import os
 from typing import List, Dict, Any, Optional, Callable
 from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 
 
 class PLLuMLLM:
@@ -23,12 +28,12 @@ class PLLuMLLM:
         """
         from huggingface_hub import InferenceClient
         
-        self.api_key = api_key or os.environ.get("HF_TOKEN")
+        self.api_key = api_key or os.getenv('HF_TOKEN')
         if not self.api_key:
             raise ValueError("Brak HF_TOKEN! Ustaw zmienną środowiskową lub przekaż jako argument.")
         
         self.client = InferenceClient(api_key=self.api_key)
-        self.model = "CYFRAGOVPL/PLLuM-12B-nc-chat:featherless-ai"
+        self.model = "CYFRAGOVPL/PLLuM-12B-nc-chat"
         
         print(f"Zainicjalizowano PLLuM model: {self.model}")
     
@@ -107,7 +112,7 @@ WAŻNE:
 - Używaj naturalnego, ciepłego języka polskiego
 - Dostosuj rekomendacje do preferencji użytkownika
 - Jeśli wyniki wyszukiwania są dostępne, wykorzystaj je w odpowiedzi
-- Bądź konkretny - podawaj nazwy, adresy, oceny
+- Zawsze przedstawiaj rekomendacje jako listę, podając nazwę miejsca i wynik dopasowania (score). Na przykład: "Oto co znalazłem: 1. Nazwa Miejsca (Dopasowanie: 0.75)". Nie dodawaj opisów, tylko listę.
 - Nie wymyślaj informacji - bazuj tylko na danych z wyszukiwania
 - Jeśli nie ma wyników, zapytaj o inne preferencje"""
     
@@ -161,7 +166,6 @@ Odpowiedz TYLKO kluczowymi słowami lub słowem "BRAK" jeśli nie ma intencji wy
                 formatted += f"   Współrzędne: {r['coords']}\n"
             
             formatted += f"   Dopasowanie: {r['score']:.2f}\n\n"
-        
         return formatted
     
     def _prepare_messages(self, user_message: str, k: int = 5):
@@ -261,63 +265,108 @@ Odpowiedz TYLKO kluczowymi słowami lub słowem "BRAK" jeśli nie ma intencji wy
         
         print(f"Konwersacja wczytana z: {filepath}")
 
-
-# ============================================
-# FUNKCJE POMOCNICZE
-# ============================================
-
-def create_rag_system(embeddings_file: str = "output_files/lodz_restaurants_cafes_embeddings_mean.jsonl"):
+def create_rag_system(
+    embeddings_file: str = "output_files/lodz_restaurants_cafes_embeddings_mean.jsonl",
+    pooling_type: str | None = None
+):
     """
     Tworzy kompletny system RAG z wczytanymi embeddingami.
-    
+
     Args:
         embeddings_file: Ścieżka do pliku z embeddingami
-    
+        pooling_type: "cls" lub "mean", jeśli None – wykrywa automatycznie
+
     Returns:
         Tuple (ConversationalRAG, search_function)
     """
     import numpy as np
     import faiss
-    from sentence_transformers import SentenceTransformer
-    
+    import json
+    from embedding_model import ModelMeanPooling
+
     print("Ładowanie modelu i embeddingów...")
-    
-    # 1. Model do embeddingów
-    model = SentenceTransformer("sdadas/mmlw-retrieval-roberta-large")
-    query_prefix = "zapytanie: "
-    
-    # 2. Wczytaj embeddingi
+
+    # 1. Wybór strategii poolingu
+    if pooling_type is None:
+        pooling_strategy = "cls" if "cls" in embeddings_file else "mean"
+    else:
+        pooling_strategy = pooling_type
+
+    print(f"INFO: Inicjalizuję model wykonawczy | pooling='{pooling_strategy}'")
+
+    # 2. Wczytanie embeddingów z pliku
     records = []
     embeddings = []
-    
+
     with open(embeddings_file, "r", encoding="utf-8") as f:
         for line in f:
             rec = json.loads(line)
             records.append(rec)
-            embeddings.append(rec["embedding"])
-    
-    embeddings = np.array(embeddings).astype("float32")
+            embeddings.append(np.array(rec["embedding"], dtype="float32"))
+
+    embeddings = np.vstack(embeddings)
+    n_samples, embedding_dim = embeddings.shape
+
+    print(f"Załadowano {n_samples} embeddingów o wymiarze {embedding_dim}")
+
+    # 3. Inicjalizacja modelu do enkodowania zapytań
+    model_wrapper = ModelMeanPooling(
+        "sdadas/mmlw-retrieval-roberta-large",
+        pooling_strategy=pooling_strategy
+    )
+    model = model_wrapper.model
+    model_dim = model.get_sentence_embedding_dimension()
+
+    if model_dim != embedding_dim:
+        print(f"UWAGA: Wymiar modelu ({model_dim}) nie zgadza się z wymiarem embeddingów ({embedding_dim})")
+        # Można wybrać dopasowanie modelu do embeddingów lub odrzucić
+        # W tym przypadku użyjemy wymiaru z embeddingów
+        embedding_dim = embedding_dim
+
+    # 4. Normalizacja embeddingów i indeks FAISS
     faiss.normalize_L2(embeddings)
-    
-    # 3. Zbuduj indeks FAISS
-    index = faiss.IndexFlatIP(embeddings.shape[1])
+    index = faiss.IndexFlatIP(embedding_dim)
     index.add(embeddings)
-    
     print(f"Indeks gotowy! Liczba restauracji: {index.ntotal}")
-    
-    # 4. Funkcja wyszukiwania
+
+    query_prefix = "zapytanie: "
+
+    # 5. Obiekt wektorowy z metodą wyszukiwania
+    class SimpleVectorStore:
+        def similarity_search_with_score(self, query: str, k: int = 5):
+            full_query = query_prefix + query
+            q_emb = model.encode(full_query, normalize_embeddings=True)
+            q_emb = np.array(q_emb, dtype="float32").reshape(1, -1)
+
+            # Bezpieczny check wymiaru
+            assert q_emb.shape[1] == embedding_dim, (
+                f"Embedding mismatch: query={q_emb.shape[1]} index={embedding_dim}"
+            )
+
+            scores, idxs = index.search(q_emb, k)
+
+            class Document:
+                def __init__(self, page_content, metadata):
+                    self.page_content = page_content
+                    self.metadata = metadata
+
+            results = []
+            for score, idx in zip(scores[0], idxs[0]):
+                rec = records[idx]
+                doc = Document(page_content=rec.get("name"), metadata=rec)
+                results.append((doc, float(score)))
+            return results
+
+    vector_store = SimpleVectorStore()
+
+    # 6. Funkcja wyszukiwania dla agenta konwersacyjnego
     def search(query, k=5):
-        full_query = query_prefix + query
-        q_emb = model.encode(full_query, normalize_embeddings=True)
-        q_emb = q_emb.astype("float32").reshape(1, -1)
-        
-        scores, idxs = index.search(q_emb, k)
-        
+        docs_with_scores = vector_store.similarity_search_with_score(query, k=k)
         results = []
-        for score, idx in zip(scores[0], idxs[0]):
-            rec = records[idx]
+        for doc, score in docs_with_scores:
+            rec = doc.metadata
             results.append({
-                "score": float(score),
+                "score": score,
                 "name": rec.get("name"),
                 "type": rec.get("type"),
                 "address": rec.get("Adres", "brak"),
@@ -325,25 +374,22 @@ def create_rag_system(embeddings_file: str = "output_files/lodz_restaurants_cafe
                 "google_rating": rec.get("google_rating"),
                 "google_reviews_total": rec.get("google_reviews_total"),
             })
-        
-        # Sortowanie po ocenie
         results.sort(
-            key=lambda x: (
-                -(x["google_rating"] or 0),
-                -(x["google_reviews_total"] or 0)
-            )
+            key=lambda x: (-(x["google_rating"] or 0), -(x["google_reviews_total"] or 0))
         )
-        
         return results
-    
-    # 5. Inicjalizuj LLM
+
+    # 7. Inicjalizacja LLM
     llm = PLLuMLLM()
-    
-    # 6. Stwórz system RAG
+
+    # 8. Stworzenie systemu RAG
     rag = ConversationalRAG(
         llm_client=llm,
         search_function=search,
         max_history=10
     )
-    
+
+    # Dołączenie vector_store, aby był dostępny w testach
+    rag.vectorstore = vector_store
+
     return rag, search

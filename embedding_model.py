@@ -43,7 +43,7 @@ class ModelMeanPooling:
         if pooling_strategy == "mean":
             pooling_kwargs["pooling_mode_mean_tokens"] = True
         elif pooling_strategy == "cls":
-            pooling_kwargs["pooling_mode_max_tokens"] = True
+            pooling_kwargs["pooling_mode_cls_token"] = True
         
         pooling = models.Pooling(**pooling_kwargs)
 
