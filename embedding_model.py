@@ -36,15 +36,18 @@ class ModelMeanPooling:
         word_model = base[0]
         
         # Ustaw odpowiednie parametry poolingu
+        # Domyślnie wyłączamy wszystkie, aby mieć pewność, że tylko wybrana strategia będzie aktywna.
         pooling_kwargs = {
             "word_embedding_dimension": word_embedding_dimension,
+            "pooling_mode_mean_tokens": False,
+            "pooling_mode_cls_token": False,
+            "pooling_mode_max_tokens": False,
         }
         
         if pooling_strategy == "mean":
             pooling_kwargs["pooling_mode_mean_tokens"] = True
         elif pooling_strategy == "cls":
             pooling_kwargs["pooling_mode_cls_token"] = True
-        
         pooling = models.Pooling(**pooling_kwargs)
 
         # Złożony model z modułem token embedding + pooling

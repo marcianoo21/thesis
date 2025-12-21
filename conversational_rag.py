@@ -9,10 +9,23 @@ import json
 import os
 from typing import List, Dict, Any, Optional, Callable
 from datetime import datetime
+from math import radians, sin, cos, sqrt, atan2
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
+
+def distance_km(lat1, lon1, lat2, lon2):
+    """Oblicza odległość w km między dwoma punktami GPS."""
+    if None in [lat1, lon1, lat2, lon2]:
+        return float('inf')  # Zwróć nieskończoność, jeśli brakuje koordynatów
+
+    R = 6371  # Promień Ziemi w km
+    d_lat = radians(lat2 - lat1)
+    d_lon = radians(lon2 - lon1)
+    a = sin(d_lat / 2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(d_lon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c
 
 
 
@@ -312,16 +325,13 @@ def create_rag_system(
     # 3. Inicjalizacja modelu do enkodowania zapytań
     model_wrapper = ModelMeanPooling(
         "sdadas/mmlw-retrieval-roberta-large",
+        word_embedding_dimension=embedding_dim,
         pooling_strategy=pooling_strategy
     )
-    model = model_wrapper.model
-    model_dim = model.get_sentence_embedding_dimension()
+    model_dim = model_wrapper.model.get_sentence_embedding_dimension()
 
     if model_dim != embedding_dim:
         print(f"UWAGA: Wymiar modelu ({model_dim}) nie zgadza się z wymiarem embeddingów ({embedding_dim})")
-        # Można wybrać dopasowanie modelu do embeddingów lub odrzucić
-        # W tym przypadku użyjemy wymiaru z embeddingów
-        embedding_dim = embedding_dim
 
     # 4. Normalizacja embeddingów i indeks FAISS
     faiss.normalize_L2(embeddings)
@@ -335,7 +345,7 @@ def create_rag_system(
     class SimpleVectorStore:
         def similarity_search_with_score(self, query: str, k: int = 5):
             full_query = query_prefix + query
-            q_emb = model.encode(full_query, normalize_embeddings=True)
+            q_emb = model_wrapper.encode(full_query, normalize=True)
             q_emb = np.array(q_emb, dtype="float32").reshape(1, -1)
 
             # Bezpieczny check wymiaru
@@ -360,24 +370,61 @@ def create_rag_system(
     vector_store = SimpleVectorStore()
 
     # 6. Funkcja wyszukiwania dla agenta konwersacyjnego
-    def search(query, k=5):
-        docs_with_scores = vector_store.similarity_search_with_score(query, k=k)
-        results = []
+    def search(query, k=5, user_location=None):
+        """
+        Wyszukuje, deduplikuje i sortuje restauracje.
+        
+        Args:
+            user_location (tuple, optional): Krotka (lat, lon) lokalizacji użytkownika.
+        """
+        # Krok 1: Wyszukaj semantycznie większą liczbę kandydatów
+        initial_k = k * 3
+        docs_with_scores = vector_store.similarity_search_with_score(query, k=initial_k)
+        
+        # Krok 2: Odrzuć duplikaty i przygotuj listę do dalszego przetwarzania
+        unique_results = {}
         for doc, score in docs_with_scores:
             rec = doc.metadata
-            results.append({
-                "score": score,
-                "name": rec.get("name"),
-                "type": rec.get("type"),
-                "address": rec.get("Adres", "brak"),
-                "coords": rec.get("Współrzędne"),
-                "google_rating": rec.get("google_rating"),
-                "google_reviews_total": rec.get("google_reviews_total"),
-            })
-        results.sort(
-            key=lambda x: (-(x["google_rating"] or 0), -(x["google_reviews_total"] or 0))
+            name = rec.get("name")
+            # Dodaj do słownika tylko jeśli nazwa się jeszcze nie pojawiła.
+            # Słownik zapamięta tylko pierwszy (i najwyżej oceniony) wpis dla danej nazwy.
+            if name not in unique_results:
+                unique_results[name] = {
+                    "score": score,
+                    "name": name,
+                    "type": rec.get("type"),
+                    "address": rec.get("Adres", "brak"),
+                    "coords": rec.get("Współrzędne"),
+                    "google_rating": rec.get("google_rating"),
+                    "google_reviews_total": rec.get("google_reviews_total"),
+                    "google_price_range": rec.get("google_price_range")
+                }
+
+        processed_results = list(unique_results.values())
+
+        # Krok 3: Wzbogać dane (np. o odległość) i zastosuj Re-Ranking
+        for result in processed_results:
+            dist = float('inf')
+            # Oblicz odległość, jeśli podano lokalizację użytkownika
+            if user_location and result.get("coords"):
+                try:
+                    lat, lon = map(float, result["coords"].split(","))
+                    dist = distance_km(user_location[0], user_location[1], lat, lon)
+                except (ValueError, TypeError):
+                    pass
+            result["distance_km"] = dist
+
+        # Logika sortowania (re-ranking): sortuj po ocenie, a potem po liczbie opinii.
+        # To sprawia, że najwyżej oceniane i najpopularniejsze miejsca trafiają na górę listy.
+        processed_results.sort(
+            key=lambda x: (x.get("google_rating") or 0, x.get("google_reviews_total") or 0),
+            reverse=True
         )
-        return results
+
+        # Krok 4: Zwróć 'k' najlepszych wyników po wszystkich operacjach
+        final_results = processed_results[:k]
+
+        return final_results
 
     # 7. Inicjalizacja LLM
     llm = PLLuMLLM()

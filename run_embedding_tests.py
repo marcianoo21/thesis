@@ -18,28 +18,68 @@ def run_tests(test_mode="rag"):
         print("Brak HF_TOKEN! Ustaw token w .env")
         return
 
-    # mapuje pooling -> plik
+    # Konfiguracja testów dla wszystkich 4 typów embeddingów
     embedding_files = {
-        "mean": "output_files/lodz_restaurants_cafes_embeddings_mean.jsonl",
-        "cls": "output_files/lodz_restaurants_cafes_embeddings_cls.jsonl"
+        "mean_full_context": {
+            "name": "MEAN (Pełny kontekst)",
+            "file": "output_files/lodz_restaurants_cafes_embeddings_mean.jsonl",
+            "pooling": "mean"
+        },
+        "cls_full_context": {
+            "name": "CLS (Pełny kontekst)",
+            "file": "output_files/lodz_restaurants_cafes_embeddings_cls.jsonl",
+            "pooling": "cls"
+        },
+        "mean_keywords_only": {
+            "name": "MEAN (Tylko słowa kluczowe)",
+            "file": "output_files/lodz_restaurants_cafes_embeddings_mean_words.jsonl",
+            "pooling": "mean"
+        },
+        "cls_keywords_only": {
+            "name": "CLS (Tylko słowa kluczowe)",
+            "file": "output_files/lodz_restaurants_cafes_embeddings_cls_words.jsonl",
+            "pooling": "cls"
+        }
     }
 
+    # Rozszerzona lista zapytań testowych
     queries = [
-        "Gdzie zjem dobrą pizzę?",
-        "Szukam restauracji z kuchnią azjatycką",
-        "Jaka jest najlepsza kawiarnia w centrum?"
+        "Gdzie zjem dobrą pizzę na grubym cieście?",
+        "Szukam autentycznej restauracji z kuchnią włoską.",
+        "Najlepsza kawiarnia w centrum z miejscem do pracy.",
+        "Klimatyczne miejsce na romantyczną kolację z kominkiem.",
+        "Gdzie można posłuchać muzyki na żywo w weekend?",
+        "Restauracja przyjazna rodzinom z dziećmi i placem zabaw.",
+        "Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej",
+        "Gdzie na wypasionego burgera i dobre piwo kraftowe?",
+        "Szukam restauracji z bogatą ofertą dań wegańskich.",
+        "Lokal z ogródkiem i dostępem dla osób na wózkach.",
+        "Gdzie serwują najlepsze sushi w Łodzi?",
+        "Polećcie jakiś dobry ramen.",
+        "Miejsce na szybki i niedrogi lunch w okolicach biurowców.",
+        "Szukam eleganckiej restauracji na kolację biznesową.",
+        "Gdzie można zjeść tradycyjne polskie pierogi?",
+        "Bar z fajkami wodnymi i dobrą herbatą.",
+        "Cukiernia z najlepszymi pączkami w mieście.",
+        "Restauracja serwująca owoce morza.",
+        "Gdzie na śniadanie w sobotę rano?",
+        "Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?"
     ]
 
     results_log = [f"Test mode: {test_mode.upper()}\n\n"]
 
-    for pooling_type, file_path in embedding_files.items():
+    for config_key, config in embedding_files.items():
+        test_name = config["name"]
+        file_path = config["file"]
+        pooling_type = config["pooling"]
+
         print("=" * 80)
-        print(f"Testing with {pooling_type.upper()} pooling")
+        print(f"Testing with {test_name}")
         print(f"Embedding file: {file_path}")
         print("=" * 80)
 
         results_log.append(
-            f"{'=' * 30} TEST SET: {pooling_type.upper()} {'=' * 30}\n"
+            f"{'=' * 30} TEST SET: {test_name} {'=' * 30}\n"
         )
 
         if not os.path.exists(file_path):
@@ -67,20 +107,33 @@ def run_tests(test_mode="rag"):
                 results_log.append(f"Query: {query}\n")
 
                 if test_mode == "rag":
-                    response = rag_chain.generate_response(query, k=3)
+                    response = rag_chain.generate_response(query, k=5)
                     print(f"<-- Response: {response}\n")
                     results_log.append(f"Response:\n{response}\n")
 
                 elif test_mode == "retrieval":
+                    # Wyszukaj więcej wyników (np. 15), aby mieć z czego odfiltrować duplikaty
+                    initial_k = 15
+                    final_k = 5
+
                     docs_with_scores = (
                         rag_chain.vectorstore.similarity_search_with_score(
-                            query, k=3
+                            query, k=initial_k
                         )
                     )
 
+                    # Deduplikacja wyników - zachowujemy tylko pierwszy (najlepszy) wynik dla danej nazwy
+                    unique_docs = {}
+                    for doc, score in docs_with_scores:
+                        name = doc.page_content
+                        if name not in unique_docs:
+                            unique_docs[name] = (doc, score)
+
+                    # Weź top N unikalnych wyników
+                    top_unique_docs = list(unique_docs.values())[:final_k]
+
                     response_lines = [
-                        f"{doc.page_content} - {score:.4f}"
-                        for doc, score in docs_with_scores
+                        f"{doc.page_content} - {score:.4f}" for doc, score in top_unique_docs
                     ]
 
                     response = "\n".join(response_lines)
@@ -91,7 +144,7 @@ def run_tests(test_mode="rag"):
 
         except Exception as e:
             error_message = (
-                f"An error occurred during testing with {pooling_type}: {e}"
+                f"An error occurred during testing with {test_name}: {e}"
             )
             print(error_message)
             import traceback
@@ -100,7 +153,7 @@ def run_tests(test_mode="rag"):
 
         results_log.append("\n" * 2)
 
-    output_filename = f"embedding_test_results_{test_mode}.txt"
+    output_filename = f"embedding_test_results_all_{test_mode}.txt"
     with open(output_filename, "w", encoding="utf-8") as f:
         f.writelines(results_log)
 
@@ -108,5 +161,10 @@ def run_tests(test_mode="rag"):
 
 
 if __name__ == "__main__":
-    print("Running retrieval-only tests for pooling evaluation...")
+    # Możesz wybrać tryb testowy: 'retrieval' (tylko wyszukiwanie) lub 'rag' (pełny system)
+    print("Running comprehensive retrieval-only tests for all embedding types...")
     run_tests(test_mode="retrieval")
+
+    # Aby uruchomić testy RAG (z generowaniem odpowiedzi przez LLM), odkomentuj poniższą linię:
+    # print("\nRunning comprehensive RAG tests for all embedding types...")
+    # run_tests(test_mode="rag")
