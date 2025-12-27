@@ -36,17 +36,18 @@ def create_context_from_keywords(name, keywords_data):
     components = {}
 
     # Zaczynamy od nazwy miejsca
-    components['name_intro'] = f"{name}."
+    components['name_intro'] = f"Miejsce o nazwie {name}."
 
     # Przetwarzamy dostępne słowa kluczowe
     keyword_map = {
-        'atmosphere': "{}",
-        'popular_for': "{}",
-        'offerings': "{}",
-        'amenities': "{}",
-        'specials': "{}",
-        'crowd': "{}",
-        'accessibility': "{}"
+        'types': "To miejsce typu: {}.",
+        'offerings': "W ofercie znajduje się: {}.",
+        'specials': "Specjalne cechy miejsca: {}.",
+        'atmosphere': "Atmosfera jest opisywana jako: {}.",
+        'amenities': "Dostępne udogodnienia to: {}.",
+        'popular_for': "Jest popularne szczególnie na: {}.",
+        'crowd': "Typowa grupa odwiedzających: {}.",
+        'accessibility': "Miejsce oferuje udogodnienia dostępności: {}."
     }
 
     for key, template in keyword_map.items():

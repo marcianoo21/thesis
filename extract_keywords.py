@@ -8,10 +8,11 @@ OUTPUT_FILE = "output_files/filtered_keywords.jsonl"
 
 # Klucze, które chcemy wyodrębnić z obiektu "key_words"
 KEYS_TO_EXTRACT = [
+    "types",
     "specials",
     "popular_for",
     "accessibility",
-    "offerings",
+    "offerings", 
     "amenities",
     "atmosphere",
     "crowd"
