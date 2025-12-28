@@ -55,11 +55,19 @@ def main():
             print("Musisz podać zapytanie!")
             continue
 
+        # --- NOWA LOGIKA: JEDNO ZAPYTANIE ANALITYCZNE ---
+        print("Analizuję zapytanie (LLM)...")
+        analysis = rag_chain.analyze_user_intent(user_input)
+        
+        if not analysis:
+            print("⚠️  UWAGA: Nie udało się uzyskać analizy od LLM (np. limit API lub błąd sieci).")
+            print("   System przechodzi w tryb awaryjny: Wyszukiwanie lokalne (RoBERTa) na podstawie surowego tekstu.")
+
         # 1. Lokalizacja - Wielostopniowa detekcja (zgodnie z prośbą o debugowanie)
         user_location = None
 
         # Krok A: LLM Normalizacja
-        detected_location_llm = rag_chain.normalize_location(user_input)
+        detected_location_llm = analysis.get("location")
         
         if detected_location_llm:
             print(f"INFO: LLM wykrył lokalizację: '{detected_location_llm}'")
@@ -95,7 +103,7 @@ def main():
                     user_location = location_service.geocode(normalized_input)
 
         # 2. HyDE (Otoczka zapytania)
-        expanded_query = rag_chain.extract_search_query(user_input)
+        expanded_query = analysis.get("search_query")
         if expanded_query:
             print(f"\n=== [HyDE] Wygenerowany kontekst (Hipotetyczny Dokument) ===")
             print(f"{expanded_query}")
@@ -104,11 +112,11 @@ def main():
             expanded_query = user_input
 
         # 3. Typ kuchni i Cena (Ekstrakcja)
-        cuisine_type = rag_chain.extract_cuisine_type(user_input)
+        cuisine_type = analysis.get("cuisine")
         if cuisine_type:
             print(f"INFO: Wykryto preferencję kuchni: '{cuisine_type}'")
 
-        price_preference = rag_chain.normalize_price(user_input)
+        price_preference = analysis.get("price")
         
         if price_preference:
             print(f"INFO: Model wykrył preferencję cenową: '{price_preference}'")

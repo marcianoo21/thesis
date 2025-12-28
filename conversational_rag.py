@@ -134,6 +134,60 @@ WAŻNE:
 - Nie wymyślaj informacji - bazuj tylko na danych z wyszukiwania
 - Jeśli nie ma wyników, zapytaj o inne preferencje"""
     
+    def analyze_user_intent(self, user_message: str) -> Dict[str, Any]:
+        """
+        Analizuje intencję użytkownika w jednym zapytaniu (oszczędność API).
+        Zwraca słownik z polami: location, cuisine, price, search_query.
+        """
+        prompt = [
+            {
+                "role": "system",
+                "content": """Jesteś ekspertem kulinarnym i analitykiem danych dla miasta Łódź.
+Twoim zadaniem jest przeanalizować zapytanie użytkownika i zwrócić obiekt JSON z 4 kluczowymi polami.
+
+SZCZEGÓŁOWE INSTRUKCJE DLA PÓL:
+1. "location": Wykryj lokalizację i zamień na OFICJALNĄ nazwę w mianowniku.
+   - Przykłady: "koło manu" -> "Manufaktura", "na pietrynie" -> "Ulica Piotrkowska", "centrum" -> "Śródmieście".
+   - Jeśli brak lokalizacji -> null.
+
+2. "cuisine": Określ jeden główny typ kuchni lub dania (np. "włoska", "sushi", "burger"). Jeśli brak -> null.
+
+3. "price": Określ przedział cenowy na podstawie słów kluczowych:
+   - tanio, studencko, budżetowo -> "0-40"
+   - średnio, umiarkowanie -> "40-80"
+   - drogo, ekskluzywnie, randka, fine dining -> "80-1000"
+   - Jeśli brak -> null.
+
+4. "search_query": (HyDE) Wygeneruj krótki, hipotetyczny opis pasującej restauracji do wyszukiwarki wektorowej.
+   - Format: "To miejsce typu: [typ]. Atmosfera: [klimat]. Oferta: [dania]."
+   - Nie wymyślaj nazwy własnej restauracji.
+
+PRZYKŁAD (Few-Shot):
+User: "Szukam taniej pizzy na randkę w okolicach dworca fabrycznego"
+JSON:
+{
+  "location": "Dworzec Łódź Fabryczna",
+  "cuisine": "pizza",
+  "price": "0-40",
+  "search_query": "To miejsce typu: Pizzeria. Atmosfera: Romantyczna, przytulna. Oferta: Pizza, wino."
+}
+
+Zwróć TYLKO czysty JSON, bez markdowna."""
+            },
+            {"role": "user", "content": user_message}
+        ]
+        
+        # Zwiększamy nieco max_tokens, aby model nie uciął JSON-a
+        response = self.llm.generate(prompt, max_tokens=350, temperature=0.1)
+        
+        try:
+            # Czyszczenie odpowiedzi z ewentualnych znaczników markdown
+            clean_response = response.replace("```json", "").replace("```", "").strip()
+            return json.loads(clean_response)
+        except json.JSONDecodeError:
+            print(f"BŁĄD: Nie udało się sparsować JSON z LLM. Odpowiedź: {response}")
+            return {}
+
     def extract_search_query(self, user_message: str) -> Optional[str]:
         """
         Inteligentne rozszerzanie zapytania (Query Expansion).
