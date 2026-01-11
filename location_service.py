@@ -17,12 +17,27 @@ class LocationService:
         self.geolocator = Nominatim(user_agent="inzynierka_restaurant_recommender")
         print("Serwis lokalizacji gotowy.")
 
+    # Lista słów, które spaCy często błędnie rozpoznaje jako lokalizacje (False Positives)
+    IGNORED_LOCATIONS = {
+        "włoska", "włoski", "polska", "polski", "chińska", "chiński",
+        "azjatycka", "azjatycki", "tajska", "tajski", "indyjska", "indyjski",
+        "meksykańska", "meksykański", "amerykańska", "amerykański",
+        "wegańska", "wegański", "wegetariańska", "wegetariański",
+        "dobra", "dobry", "tania", "tani", "droga", "drogi",
+        "restauracja", "kawiarnia", "bar", "pub", "bistro", "jedzenie",
+        "obiad", "kolacja", "śniadanie", "lunch", "steki", "burger", "pizza"
+    }
+
     def extract_location_name(self, text: str) -> Optional[str]:
         """Wyciąga nazwę lokalizacji z tekstu za pomocą NER."""
         doc = self.nlp(text.title()) # Lepsze wyniki dla nazw własnych
         # Szukamy encji typu 'placeName' (miejsce) lub 'geogName' (nazwa geograficzna)
         for ent in doc.ents:
             if ent.label_ in ["placeName", "geogName", "orgName", "roadName"]: # orgName też może być lokalizacją (np. nazwa firmy), roadName dla ulic
+                if ent.lemma_.lower() in self.IGNORED_LOCATIONS:
+                    print(f"  Zignorowano fałszywą lokalizację (przymiotnik/typ): '{ent.text}'")
+                    continue
+                
                 print(f"  Znaleziono encję lokalizacyjną: '{ent.text}' ({ent.label_})")
                 # Używamy lematu (formy podstawowej), aby ułatwić geokodowanie (np. "Piotrkowskiej" -> "Piotrkowska")
                 print(f"  Lematyzacja (forma podstawowa): '{ent.lemma_}'")

@@ -75,6 +75,7 @@ class PLLuMLLM:
                 messages=messages,
                 max_tokens=max_tokens,
                 temperature=temperature,
+                stop=["Użytkownik:", "User:", "\nUżytkownik", "\nUser"]
             )
             return completion.choices[0].message.content
         except Exception as e:
@@ -139,10 +140,17 @@ WAŻNE:
         Analizuje intencję użytkownika w jednym zapytaniu (oszczędność API).
         Zwraca słownik z polami: location, cuisine, price, search_query.
         """
+        history_text = ""
+        if self.conversation_history:
+             # Bierzemy ostatnie 4 wymiany zdań dla kontekstu
+             recent = self.conversation_history[-4:] 
+             history_text = "HISTORIA ROZMOWY:\n" + "\n".join([f"{m['role']}: {m['content']}" for m in recent]) + "\n\n"
+
         prompt = [
             {
                 "role": "system",
                 "content": """Jesteś ekspertem kulinarnym i analitykiem danych dla miasta Łódź.
+Nie jesteś chatbotem do pogawędek. Twoim jedynym celem jest ekstrakcja danych do formatu JSON.
 Twoim zadaniem jest przeanalizować zapytanie użytkownika i zwrócić obiekt JSON z 4 kluczowymi polami.
 
 SZCZEGÓŁOWE INSTRUKCJE DLA PÓL:
@@ -156,11 +164,13 @@ SZCZEGÓŁOWE INSTRUKCJE DLA PÓL:
    - tanio, studencko, budżetowo -> "0-40"
    - średnio, umiarkowanie -> "40-80"
    - drogo, ekskluzywnie, randka, fine dining -> "80-1000"
-   - Jeśli brak -> null.
+   - WAŻNE: Jeśli użytkownik nie wspomniał o cenie -> null. NIE ZGADUJ.
 
 4. "search_query": (HyDE) Wygeneruj krótki, hipotetyczny opis pasującej restauracji do wyszukiwarki wektorowej.
    - Format: "To miejsce typu: [typ]. Atmosfera: [klimat]. Oferta: [dania]."
    - Nie wymyślaj nazwy własnej restauracji.
+   - Jeśli zapytanie jest bardzo krótkie (np. "steki"), rozwiń je logicznie (np. "Restauracja serwująca steki wołowe").
+   - Jeśli użytkownik nie szuka jedzenia/lokalu (np. "Cześć", "Dzięki", "To wszystko", "Jak się masz?", "Co tam?"), zwróć null.
 
 PRZYKŁAD (Few-Shot):
 User: "Szukam taniej pizzy na randkę w okolicach dworca fabrycznego"
@@ -172,9 +182,36 @@ JSON:
   "search_query": "To miejsce typu: Pizzeria. Atmosfera: Romantyczna, przytulna. Oferta: Pizza, wino."
 }
 
+User: "bardzo dobre steki"
+JSON:
+{
+  "location": null,
+  "cuisine": "steki",
+  "price": null,
+  "search_query": "To miejsce typu: Steakhouse, Restauracja mięsna. Atmosfera: Elegancka. Oferta: Steki wołowe, burgery, mięso z grilla."
+}
+
+User: "Cześć, co tam u Ciebie?"
+JSON:
+{
+  "location": null,
+  "cuisine": null,
+  "price": null,
+  "search_query": null
+}
+
+User: "czesc, co tam"
+JSON:
+{
+  "location": null,
+  "cuisine": null,
+  "price": null,
+  "search_query": null
+}
+
 Zwróć TYLKO czysty JSON, bez markdowna."""
             },
-            {"role": "user", "content": user_message}
+            {"role": "user", "content": history_text + "AKTUALNE ZAPYTANIE: " + user_message}
         ]
         
         # Zwiększamy nieco max_tokens, aby model nie uciął JSON-a
@@ -202,27 +239,25 @@ NIE wymyślaj nazwy restauracji. NIE pisz wstępów typu "Oto opis" czy "Jeśli 
 Skup się wyłącznie na typie kuchni, atmosferze i ofercie.
 
 Wymagany format:
-"To miejsce typu: [typ kuchni/lokalu]. Atmosfera jest opisywana jako: [klimat]. W ofercie znajduje się: [ogólne kategorie dań]."
+"[Typ kuchni/lokalu]. Oferta: [dania/napoje]. Charakter miejsca: [atmosfera/zastosowanie]."
 
 Unikaj wymieniania konkretnych nazw potraw (np. "rosół", "schabowy"), chyba że użytkownik wyraźnie o nie pyta. Używaj ogólnych kategorii (np. "zupy", "dania mięsne", "kuchnia polska").
-W ofercie wymień MAKSYMALNIE 3 kategorie i tylko te, które są kluczowe dla intencji użytkownika.
-
-KOLEJNOŚĆ JEST OBOWIĄZKOWA:
-1. Typ miejsca
-2. Atmosfera
-3. Oferta
+W ofercie wymień MAKSYMALNIE 3 kategorie.
 
 Przykłady:
 User: "Szukam taniej pizzy na randkę w centrum"
-Assistant: "To miejsce typu: Pizzeria, Kuchnia włoska. Atmosfera jest opisywana jako: Romantyczna atmosfera, Kameralne. W ofercie znajduje się: Pizza."
+Assistant: "pizzeria, kuchnia włoska. Oferta: Pizza. Charakter miejsca: Romantyczna atmosfera, Kameralne."
 
 User: "Gdzie na szybką kawę i ciastko?"
-Assistant: "To miejsce typu: Kawiarnia, Cukiernia. W ofercie znajduje się: Kawa, Dobre desery, Szybka przekąska. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera."
+Assistant: "kawiarnia, cukiernia. Oferta: Kawa, Dobre desery, Szybka przekąska. Charakter miejsca: Niezobowiązująca atmosfera."
+
+User: "jak sie masz?"
+Assistant: "BRAK"
 
 User: "klimatyczne miejsce z jedzeniem azjatyckim w okolicach galerii łódzkiej"
-Assistant: "To miejsce typu: Kuchnia azjatycka, Restauracja orientalna. Atmosfera jest opisywana jako: Klimatyczne, Niezobowiązująca atmosfera. W ofercie znajduje się: Dania kuchni azjatyckiej."
+Assistant: "kuchnia azjatycka, restauracja orientalna. Oferta: Dania kuchni azjatyckiej. Charakter miejsca: Klimatyczne, Niezobowiązująca atmosfera."
 
-Jeśli użytkownik nie szuka jedzenia/lokalu (np. "Cześć"), zwróć "BRAK"."""
+Jeśli użytkownik nie szuka jedzenia/lokalu (np. "Cześć", "Co tam?"), zwróć "BRAK"."""
             },
             {
                 "role": "user",
@@ -233,7 +268,7 @@ Jeśli użytkownik nie szuka jedzenia/lokalu (np. "Cześć"), zwróć "BRAK"."""
         query = self.llm.generate(extraction_prompt, max_tokens=100, temperature=0.4)
         query = query.strip().replace('"', '')
         
-        if query.upper() == "BRAK" or len(query) < 2:
+        if "BRAK" in query.upper() or len(query) < 2:
             return None
             
         print(f"DEBUG: Wygenerowany hipotetyczny kontekst: '{query}'")
@@ -363,19 +398,25 @@ User: "coś w średniej cenie" -> Assistant: "40-80" """
             formatted += f"   Dopasowanie: {score:.2f}\n\n"
         return formatted
     
-    def _prepare_messages(self, user_message: str, k: int = 5):
+    def _prepare_messages(self, user_message: str, k: int = 5, price_preference: Optional[str] = None, cuisine_filter: Optional[str] = None, search_query_override: Optional[str] = None):
         """
         Przygotowuje listę wiadomości dla LLM.
         
         Args:
             user_message: Wiadomość od użytkownika
             k: Liczba wyników do wyszukania
+            price_preference: Preferencje cenowe
+            cuisine_filter: Filtr kuchni
+            search_query_override: Opcjonalne wymuszenie zapytania wyszukiwania (lub pominięcia jeśli pusty string)
         
         Returns:
             Lista wiadomości gotowa dla LLM
         """
         # 1. Sprawdź czy potrzebne jest wyszukiwanie
-        search_query = self.extract_search_query(user_message)
+        if search_query_override is not None:
+             search_query = search_query_override
+        else:
+             search_query = self.extract_search_query(user_message)
         
         search_results = None
         if search_query:
@@ -383,7 +424,9 @@ User: "coś w średniej cenie" -> Assistant: "40-80" """
             print(f"Wyszukuję: '{search_query}' {location_info}...")
             try:
                 search_results = self.search(
-                    search_query, k=k, user_location=self.user_location
+                    search_query, k=k, user_location=self.user_location,
+                    price_preference=price_preference,
+                    cuisine_filter=cuisine_filter
                 )
             except Exception as e:
                 print(f"Błąd wyszukiwania: {e}")
@@ -407,22 +450,30 @@ User: "coś w średniej cenie" -> Assistant: "40-80" """
         
         return messages
     
-    def generate_response(self, user_message: str, k: int = 5) -> str:
+    def generate_response(self, user_message: str, k: int = 5, price_preference: Optional[str] = None, cuisine_filter: Optional[str] = None, search_query_override: Optional[str] = None) -> str:
         """
         Generuje odpowiedź na wiadomość użytkownika.
         
         Args:
             user_message: Wiadomość od użytkownika
             k: Liczba wyników do wyszukania
+            price_preference: Preferencje cenowe
+            cuisine_filter: Filtr kuchni
+            search_query_override: Opcjonalne wymuszenie zapytania wyszukiwania
         
         Returns:
             Odpowiedź asystenta
         """
         # Przygotuj wiadomości
-        messages = self._prepare_messages(user_message, k)
+        messages = self._prepare_messages(user_message, k, price_preference, cuisine_filter, search_query_override)
         
         # Wygeneruj odpowiedź
         response = self.llm.generate(messages, max_tokens=500, temperature=0.7)
+        
+        # Zabezpieczenie: Ucięcie tekstu, jeśli model zaczął symulować użytkownika
+        for stop_phrase in ["Użytkownik:", "User:", "System:", "\nUżytkownik", "\nUser"]:
+            if stop_phrase in response:
+                response = response.split(stop_phrase)[0].strip()
         
         # Zaktualizuj historię
         self.conversation_history.append({"role": "user", "content": user_message})
@@ -529,8 +580,8 @@ def _is_open_now(opening_hours: Optional[Dict[str, str]]) -> bool:
     return False
 
 def create_rag_system(
-    embeddings_file: str = "output_files/lodz_restaurants_cafes_embeddings_mean.jsonl",
-    pooling_type: str | None = None,
+    embeddings_file: str = "output_files/lodz_restaurants_cafes_embeddings_cls_words.jsonl",
+    pooling_type: str | None = "cls",
     embedding_model_name: str = "sdadas/mmlw-retrieval-roberta-large" # sdadas/stella-pl-retrieval
 ):
     """
@@ -548,6 +599,7 @@ def create_rag_system(
     import faiss
     import json
     from embedding_model import ModelMeanPooling
+    from sentence_transformers import CrossEncoder
 
     print("Ładowanie modelu i embeddingów...")
 
@@ -591,6 +643,11 @@ def create_rag_system(
     index = faiss.IndexFlatIP(embedding_dim)
     index.add(embeddings)
     print(f"Indeks gotowy! Liczba restauracji: {index.ntotal}")
+
+    # 4a. Inicjalizacja Rerankera (Cross-Encoder)
+    print("Ładowanie modelu rerankera...")
+    # Używamy dedykowanego polskiego rerankera od sdadas (wersja v2)
+    reranker = CrossEncoder('sdadas/polish-reranker-roberta-v2', trust_remote_code=True)
 
     query_prefix = "zapytanie: "
 
@@ -644,7 +701,7 @@ def create_rag_system(
         # Krok 1: Wyszukaj semantycznie większą pulę kandydatów
         # Jeśli mamy filtr kuchni, pobieramy znacznie więcej kandydatów, aby mieć co filtrować
         # (np. 100 zamiast 25 dla k=5), bo azjatyckie mogą być dalej na liście semantycznej
-        initial_k = k * 20 if cuisine_filter else k * 5
+        initial_k = k * 20 if cuisine_filter else k * 10  # Zwiększamy pulę dla rerankera
         docs_with_scores = vector_store.similarity_search_with_score(query, k=initial_k)
 
         # Krok 2: Odrzuć duplikaty i przygotuj listę do dalszego przetwarzania
@@ -764,6 +821,37 @@ def create_rag_system(
             else:
                 print(f"INFO: Brak wyników dla ceny '{price_preference}'. Ignoruję filtr ceny.")
 
+        # Krok 2c: RERANKING (Cross-Encoder)
+        # Oceniamy semantycznie pary (zapytanie, kontekst) dla przefiltrowanych wyników
+        if processed_results:
+            # Przygotuj pary do oceny
+            rerank_pairs = [[query, r["context"]] for r in processed_results]
+            
+            # Oblicz nowe wyniki (logits)
+            rerank_scores = reranker.predict(rerank_pairs)
+            
+            # Zaktualizuj semantic_score w wynikach
+            # Normalizujemy wyniki rerankera (sigmoid), aby były w zakresie 0-1 jak cosine similarity
+            from scipy.special import expit
+            normalized_scores = expit(rerank_scores)
+            
+            print(f"\n--- RERANKING DEBUG (Query: {query}) ---")
+            for i, r in enumerate(processed_results):
+                old_score = r["semantic_score"]
+                new_score = float(normalized_scores[i])
+                r["semantic_score"] = new_score
+                
+                diff = new_score - old_score
+                symbol = "⬆" if diff > 0 else "⬇"
+                # print(f"   {r['name'][:25]:<25} | Vector: {old_score:.4f} -> Reranker: {new_score:.4f} ({symbol} {abs(diff):.4f})")
+            print("----------------------------------------\n")
+
+            # Krok 2d: FILTR BEZPIECZEŃSTWA (Threshold)
+            # Jeśli Reranker (ekspert) mówi, że wynik jest słaby (< 0.15), to go wyrzucamy.
+            # To chroni nas przed sytuacją, gdzie sklep zoologiczny z oceną 5.0 wygrywa ranking.
+            processed_results = [r for r in processed_results if r["semantic_score"] > 0.15]
+            print(f"INFO: Po filtracji semantycznej (threshold 0.15) pozostało {len(processed_results)} wyników.")
+
         # Krok 3: Wzbogać dane i przygotuj do re-rankingu
         max_dist = 0.0
         # Użyj 1.0 jako minimum, aby uniknąć dzielenia przez zero
@@ -784,14 +872,19 @@ def create_rag_system(
             max_reviews_log = max(max_reviews_log, log1p(reviews))
 
         # Krok 4: Re-Ranking - obliczanie złożonego wyniku
-        # Zmieniono wagi: priorytet dla semantyki (0.85), mniejszy wpływ popularności (reviews 0.02)
-        # Zapobiega to sytuacji, gdzie popularna pierogarnia wyskakuje na hasło "sushi".
-        weights = {"semantic": 0.86, "rating": 0.07, "reviews": 0.02, "distance": 0.05}
+        # Zmiana strategii: Reranker (semantic) działa jako filtr bezpieczeństwa (odrzuca śmieci).
+        # Skoro przeszliśmy przez próg 0.15, to znaczy, że wyniki są sensowne.
+        # Teraz o kolejności decyduje głównie JAKOŚĆ (Rating + Reviews).
+        # Wagi: Semantic 30% (tylko lekkie preferowanie trafniejszych), Rating 50%, Reviews 15%, Distance 5%
+        weights = {"semantic": 0.30, "rating": 0.50, "reviews": 0.15, "distance": 0.05}
 
         for result in processed_results:
             # Normalizacja oceny (1-5 -> 0-1)
             rating = result.get("google_rating")
-            score_rating = (rating - 1) / 4.0
+            if rating is not None:
+                score_rating = (rating - 1) / 4.0
+            else:
+                score_rating = 0.5  # Domyślna wartość, jeśli brak oceny
 
             # Normalizacja logarytmiczna liczby opinii
             reviews = result.get("google_reviews_total")

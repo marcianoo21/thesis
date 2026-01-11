@@ -70,8 +70,12 @@ def main():
                     print(f"Ostrzeżenie: Pomijam rekord bez ID lub metadanych: {line}")
                     continue
 
-                embedding = create_embedding(context_rec.get("context", ""))
+                new_context = context_rec.get("context", "")
+                # print(f"Tekst do embeddingu: {new_context}")
+                embedding = create_embedding(new_context)
+                
                 enriched_record = metadata.copy()
+                enriched_record["context"] = new_context  # Nadpisujemy stary kontekst nowym
                 enriched_record["embedding"] = embedding
 
                 fout.write(json.dumps(enriched_record, ensure_ascii=False) + "\n")

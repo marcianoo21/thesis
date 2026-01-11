@@ -149,17 +149,57 @@ def main():
                     print()
                     continue
 
-                # --- NOWA LOGIKA PIPELINE'U ---
-                # 1. Wykryj i ustaw lokalizację na podstawie zapytania
-                coords = location_service.get_location_from_query(user_input)
-                if coords:
-                    rag_chain.set_user_location(coords)
-                    print(f"(INFO: Wykryto lokalizację, wyniki będą sortowane względem {coords})")
+                # --- NOWA LOGIKA PIPELINE'U (Z INTERAKCJĄ) ---
+                
+                # 0. Analiza intencji (LLM) - wyciągamy lokalizację, cenę, kuchnię
+                print("Analizuję zapytanie...")
+                analysis = rag_chain.analyze_user_intent(user_input)
+                
+                # 1. Obsługa Lokalizacji
+                user_location = None
+                
+                # A. Próba z LLM
+                detected_location = analysis.get("location")
+                if detected_location:
+                    user_location = location_service.geocode(detected_location)
+                    if not user_location:
+                        # Fallback: SpaCy na wyniku LLM
+                        spacy_loc = location_service.extract_location_name(detected_location)
+                        if spacy_loc:
+                            user_location = location_service.geocode(spacy_loc)
+                
+                # B. Fallback: SpaCy na oryginalnym zapytaniu
+                if not user_location:
+                    spacy_direct = location_service.extract_location_name(user_input)
+                    if spacy_direct:
+                        user_location = location_service.geocode(spacy_direct)
+                
+                # C. Interakcja: Zapytaj użytkownika, jeśli nie znaleziono, a nie ma w sesji
+                if user_location:
+                    rag_chain.set_user_location(user_location)
+                    print(f"(INFO: Ustawiono lokalizację: {user_location})")
+                elif not rag_chain.user_location:
+                    loc_input = input("Nie wykryłem lokalizacji. Gdzie szukać? (Enter by pominąć): ").strip()
+                    if loc_input:
+                        norm_loc = rag_chain.normalize_location(loc_input) or loc_input
+                        user_location = location_service.geocode(norm_loc)
+                        if user_location:
+                            rag_chain.set_user_location(user_location)
+                
+                # 2. Obsługa Ceny
+                price_preference = analysis.get("price")
+                if not price_preference:
+                    price_input = input("Jaki przedział cenowy? (np. 'tanie', '20-40', '$$' lub Enter by pominąć): ").strip()
+                    if price_input:
+                        price_preference = rag_chain.normalize_price(price_input) or price_input
 
-                # 2. Wygeneruj odpowiedź za pomocą pełnego systemu RAG
+                # 3. Wygeneruj odpowiedź
                 print("\nAsystent: ", end="", flush=True)
                 response = rag_chain.generate_response(
-                    user_input, k=config.top_k
+                    user_input, 
+                    k=config.top_k,
+                    price_preference=price_preference,
+                    cuisine_filter=analysis.get("cuisine")
                 )
                 # --- KONIEC NOWEJ LOGIKI ---
 

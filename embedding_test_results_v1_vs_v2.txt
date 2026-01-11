@@ -1,0 +1,324 @@
+Test mode: RETRIEVAL - COMPARISON V1 vs V2
+
+============================== TEST SET: CLS Words (v1: roberta-large) ==============================
+Query: Gdzie zjem dobrą pizzę na grubym cieście?
+Retrieved docs:
+Pełny Brzuszek - 0.8023
+Gruby Benek - 0.7987
+Pizzeria 105 - 0.7786
+Pizzeria Kultowa - 0.7746
+Pizzeria Duet - 0.7680
+----------------------------------------
+Query: Szukam autentycznej restauracji z kuchnią włoską.
+Retrieved docs:
+Pełny Brzuszek - 0.7937
+Biesiadowo - 0.7900
+Marco - 0.7827
+Ciao - 0.7818
+Angelo - 0.7817
+----------------------------------------
+Query: Najlepsza kawiarnia w centrum z miejscem do pracy.
+Retrieved docs:
+Kawka - 0.7579
+Caffe przy Targu - 0.7562
+The Brick Coffee Factory - 0.7561
+Locum cafe - 0.7533
+Caffe Przy Ulicy - 0.7523
+----------------------------------------
+Query: Klimatyczne miejsce na romantyczną kolację z kominkiem.
+Retrieved docs:
+Igraszka - 0.7397
+Winoteka - 0.7379
+Kucak - 0.7376
+Nienażarty - 0.7367
+Limonka - 0.7313
+----------------------------------------
+Query: Gdzie można posłuchać muzyki na żywo w weekend?
+Retrieved docs:
+Willa - 0.7395
+Bułkę Przez Bibułkę - 0.7328
+Biesiadowo - 0.7277
+Smak - 0.7273
+Winoteka - 0.7263
+----------------------------------------
+Query: Restauracja przyjazna rodzinom z dziećmi i placem zabaw.
+Retrieved docs:
+A... Nóż Widelec - 0.7648
+Pora Karmienia - 0.7627
+A nóż widelec - 0.7545
+Kucak - 0.7519
+GastroMachina - 0.7412
+----------------------------------------
+Query: Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej
+Retrieved docs:
+Kapusta z grochem - 0.7350
+Nienażarty - 0.7279
+Stołówka studencka - 0.7252
+Pierogarnia Stary Młyn - 0.7231
+Restauracja Łódzka - 0.7162
+----------------------------------------
+Query: Gdzie na wypasionego burgera i dobre piwo kraftowe?
+Retrieved docs:
+Bułkę Przez Bibułkę - 0.7453
+Gastromachina - 0.7388
+Manekin - 0.7309
+Szpulka - 0.7308
+Nienażarty - 0.7231
+----------------------------------------
+Query: Szukam restauracji z bogatą ofertą dań wegańskich.
+Retrieved docs:
+Wok-Art - 0.7751
+Limonka - 0.7692
+Winoteka - 0.7675
+Masala Trail - 0.7661
+Szpulka - 0.7648
+----------------------------------------
+Query: Lokal z ogródkiem i dostępem dla osób na wózkach.
+Retrieved docs:
+Kucak - 0.8209
+Restauracja Stary Rynek 2 - 0.7929
+Obiady domowe - 0.7757
+Cukiernia Sowa - 0.7686
+Fabrykant - 0.7678
+----------------------------------------
+Query: Gdzie serwują najlepsze sushi w Łodzi?
+Retrieved docs:
+Restauracja Łódzka - 0.7966
+Bukowiecki Sushi - 0.7804
+Sushi w dłoń - 0.7589
+Sushi w Dłoń - 0.7564
+Koku Sushi - 0.7552
+----------------------------------------
+Query: Polećcie jakiś dobry ramen.
+Retrieved docs:
+Ato Ramen - 0.7905
+Sushi w dłoń - 0.7825
+Sushi w Dłoń - 0.7773
+Sushi Kushi & Ramen Shop - 0.7730
+House of Sushi - 0.7689
+----------------------------------------
+Query: Miejsce na szybki i niedrogi lunch w okolicach biurowców.
+Retrieved docs:
+Obiady u Gosi - 0.7667
+Obiady domowe - 0.7560
+Kucak - 0.7532
+Obiady Domowe - 0.7513
+Locum cafe - 0.7502
+----------------------------------------
+Query: Szukam eleganckiej restauracji na kolację biznesową.
+Retrieved docs:
+Szpulka - 0.7744
+Wodnik - 0.7688
+Winoteka - 0.7663
+Sphinx - 0.7645
+Steakownia - 0.7636
+----------------------------------------
+Query: Gdzie można zjeść tradycyjne polskie pierogi?
+Retrieved docs:
+Pierogarnia Stary Młyn - 0.8257
+Kapusta z grochem - 0.8160
+Restauracja Łódzka - 0.7881
+Nienażarty - 0.7824
+Pod Jabłonką - 0.7676
+----------------------------------------
+Query: Bar z fajkami wodnymi i dobrą herbatą.
+Retrieved docs:
+Bar Pod Dębem - 0.7682
+Casablanca - 0.7573
+Bułkę Przez Bibułkę - 0.7491
+Layali Shisha Club & Restaurant - 0.7474
+Góralska Chata - 0.7434
+----------------------------------------
+Query: Cukiernia z najlepszymi pączkami w mieście.
+Retrieved docs:
+Cukiernia Sowa - 0.7525
+Cukiernia Dybalski - 0.7477
+Cukiernia Braci Miś - 0.7473
+Beza Krówka - naturalne lody rzemieślnicze - 0.7449
+Bułkę Przez Bibułkę - 0.7380
+----------------------------------------
+Query: Restauracja serwująca owoce morza.
+Retrieved docs:
+Sushi w dłoń - 0.7836
+Sushi w Dłoń - 0.7836
+Małgosia - 0.7833
+GastroMachina - 0.7825
+House of Sushi - 0.7770
+----------------------------------------
+Query: Gdzie na śniadanie w sobotę rano?
+Retrieved docs:
+Szpulka - 0.7365
+Locum cafe - 0.7277
+MORNING - 0.7259
+MORNING coffee & more - 0.7255
+Caffe Przy Ulicy - 0.7244
+----------------------------------------
+Query: Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?
+Retrieved docs:
+The Mexican - 0.7851
+Nienażarty - 0.7569
+Ganesh - 0.7496
+Limonka - 0.7401
+Kucak - 0.7369
+----------------------------------------
+============================== TEST SET: CLS Words (v2: roberta-large-v2) ==============================
+Query: Gdzie zjem dobrą pizzę na grubym cieście?
+Retrieved docs:
+Gruby Benek - 0.8022
+Basilia - 0.7869
+Grande Pizza - 0.7850
+Solo Pizza - 0.7820
+Pizzeria Osiedlowa - 0.7818
+----------------------------------------
+Query: Szukam autentycznej restauracji z kuchnią włoską.
+Retrieved docs:
+Angelo - 0.8163
+Basilia - 0.8133
+Boska Włoska - 0.8130
+Roma - 0.8098
+Marco - 0.8097
+----------------------------------------
+Query: Najlepsza kawiarnia w centrum z miejscem do pracy.
+Retrieved docs:
+Kofeina - 0.8340
+Ekspres do Kawy - 0.8277
+Stop Cafe - 0.8269
+Poczekalnia - 0.8261
+Starbucks - 0.8214
+----------------------------------------
+Query: Klimatyczne miejsce na romantyczną kolację z kominkiem.
+Retrieved docs:
+Kucak - 0.8336
+Steakownia - 0.8318
+Roma - 0.8218
+Wodnik - 0.8212
+Spółdzielnia - 0.8205
+----------------------------------------
+Query: Gdzie można posłuchać muzyki na żywo w weekend?
+Retrieved docs:
+Willa - 0.7511
+Kucak - 0.7469
+Smak - 0.7460
+Meta - 0.7434
+Bar - 0.7433
+----------------------------------------
+Query: Restauracja przyjazna rodzinom z dziećmi i placem zabaw.
+Retrieved docs:
+Kucak - 0.8451
+Pora Karmienia - 0.8369
+Karczma Raz na Wozie - 0.8293
+Stołówka studencka - 0.8226
+Bar - 0.8206
+----------------------------------------
+Query: Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej
+Retrieved docs:
+Stołówka studencka - 0.8075
+Kapusta z grochem - 0.7949
+Pod Jabłonką - 0.7840
+Kucak - 0.7746
+Restauracja Łódzka - 0.7731
+----------------------------------------
+Query: Gdzie na wypasionego burgera i dobre piwo kraftowe?
+Retrieved docs:
+Karczma Raz na Wozie - 0.7881
+Bułkę Przez Bibułkę - 0.7875
+Lepione&Pieczone - 0.7866
+Gastromachina - 0.7844
+Steakownia - 0.7838
+----------------------------------------
+Query: Szukam restauracji z bogatą ofertą dań wegańskich.
+Retrieved docs:
+Masala Trail - 0.8020
+Wok-Art - 0.7879
+Kucak - 0.7876
+Owoce i warzywa - 0.7837
+Smak - 0.7830
+----------------------------------------
+Query: Lokal z ogródkiem i dostępem dla osób na wózkach.
+Retrieved docs:
+Restauracja Stary Rynek 2 - 0.8579
+Kucak - 0.8565
+Cukiernia Sowa - 0.8403
+Obiady domowe - 0.8328
+Karczma Raz na Wozie - 0.8270
+----------------------------------------
+Query: Gdzie serwują najlepsze sushi w Łodzi?
+Retrieved docs:
+Restauracja Łódzka - 0.7875
+Bukowiecki Sushi - 0.7773
+Sayuri Sushi - 0.7662
+Koku Sushi - 0.7617
+Wasabi Sushi - 0.7611
+----------------------------------------
+Query: Polećcie jakiś dobry ramen.
+Retrieved docs:
+Ato Ramen - 0.8270
+Bar Nam-Long - 0.8045
+Sushi w dłoń - 0.7958
+Sushi Kushi - 0.7941
+Ba Mien - 0.7939
+----------------------------------------
+Query: Miejsce na szybki i niedrogi lunch w okolicach biurowców.
+Retrieved docs:
+Stołówka studencka - 0.8469
+Karczma Raz na Wozie - 0.8331
+Obiady u Gosi - 0.8314
+Obiady domowe - 0.8310
+Kucak - 0.8275
+----------------------------------------
+Query: Szukam eleganckiej restauracji na kolację biznesową.
+Retrieved docs:
+Steakownia - 0.8178
+Arteria - 0.8079
+Winoteka - 0.8061
+Polka - 0.8059
+Restauracja Gościnna - 0.7962
+----------------------------------------
+Query: Gdzie można zjeść tradycyjne polskie pierogi?
+Retrieved docs:
+Kapusta z grochem - 0.8073
+Pierogarnia Stary Młyn - 0.8057
+Pod Jabłonką - 0.7886
+Lepione&Pieczone - 0.7882
+Polka - 0.7860
+----------------------------------------
+Query: Bar z fajkami wodnymi i dobrą herbatą.
+Retrieved docs:
+Casablanca - 0.8626
+Bar - 0.8590
+Poczekalnia - 0.8505
+Steakownia - 0.8457
+Layali Shisha Club & Restaurant - 0.8445
+----------------------------------------
+Query: Cukiernia z najlepszymi pączkami w mieście.
+Retrieved docs:
+Vita Cafe - 0.8079
+Cukiernia Sowa - 0.8037
+Bułkę Przez Bibułkę - 0.7987
+Cykada - 0.7973
+Montag - 0.7956
+----------------------------------------
+Query: Restauracja serwująca owoce morza.
+Retrieved docs:
+Steakownia - 0.8308
+Karczma Raz na Wozie - 0.8236
+Kucak - 0.8232
+Stare Kino - 0.8206
+Arteria - 0.8151
+----------------------------------------
+Query: Gdzie na śniadanie w sobotę rano?
+Retrieved docs:
+MORNING - 0.7997
+Karczma Raz na Wozie - 0.7997
+Caffe przy Targu - 0.7983
+Stołówka studencka - 0.7970
+Caffe przy ulicy - 0.7935
+----------------------------------------
+Query: Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?
+Retrieved docs:
+The Mexican - 0.7932
+Indian Steak - 0.7869
+Thai Wok - 0.7854
+Ganesh - 0.7818
+Kapusta z grochem - 0.7811
+----------------------------------------
