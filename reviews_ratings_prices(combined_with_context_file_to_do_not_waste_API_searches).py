@@ -11,9 +11,7 @@ import time
 from dotenv import load_dotenv
 import os
 
-# =============================================================
-# KONFIGURACJA
-# =============================================================
+
 
 load_dotenv()
 
@@ -26,9 +24,7 @@ OUTPUT_FILE = "output_files/lodz_restaurants_cafes_with_ratings.jsonl"
 DELAY_SECONDS = 1
 
 
-# =============================================================
-# FUNKCJA: Pobierz data_id z Google Maps
-# =============================================================
+
 def get_place_data_id(name, coords):
     """
     Wyszukuje miejsce w Google Maps i zwraca data_id.
@@ -59,7 +55,6 @@ def get_place_data_id(name, coords):
             print(f"    Nie znaleziono miejsca: {name}")
             return None
         else:
-        # Pobierz pierwszy wynik (najbardziej pasujący)
             if results.get("local_results") and len(results["local_results"]) > 0:
                 place = results["local_results"][0]
                 data_id = place.get("data_id")
@@ -85,9 +80,7 @@ def get_place_data_id(name, coords):
         return None
 
 
-# =============================================================
-# FUNKCJA: Pobierz tylko średnią ocenę (bez szczegółowych reviews)
-# =============================================================
+
 def get_google_rating(name, coords):
     """
     Prostsza wersja - pobiera tylko data_id i zwraca średnią ocenę.
@@ -108,9 +101,7 @@ def get_google_rating(name, coords):
     }
 
 
-# =============================================================
-# GŁÓWNA FUNKCJA: Przetwórz wszystkie restauracje
-# =============================================================
+
 def main():
     print("Pobieranie ocen Google Maps dla restauracji w Łodzi\n")
     print("="*60)
@@ -172,9 +163,7 @@ def main():
     print(f" Zapisano do: {OUTPUT_FILE}")
 
 
-# =============================================================
-# URUCHOMIENIE
-# =============================================================
+
 if __name__ == "__main__":
     if SERPAPI_KEY == "YOUR_API_KEY":
         print(" BŁĄD: Ustaw swój klucz SerpAPI w zmiennej SERPAPI_KEY")

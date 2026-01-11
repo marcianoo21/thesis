@@ -23,7 +23,7 @@ class RAGConfig:
     # Conversation settings
     max_history: int = 10
     max_tokens: int = 500
-    temperature: float = 0.7
+    temperature: float = 0.9
     
     # System prompt
     system_prompt: Optional[str] = None
@@ -39,7 +39,7 @@ DEFAULT = RAGConfig(
     top_k=5,
     max_history=10,
     max_tokens=500,
-    temperature=0.7,
+    temperature=0.9,
 )
 
 

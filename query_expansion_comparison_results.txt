@@ -1,0 +1,414 @@
+Test mode: QUERY EXPANSION COMPARISON (CLS Full Context)
+Date: 2025-12-28 17:18:07
+
+QUERY 1: Gdzie zjem dobrą pizzę na grubym cieście?
+-------------------- Baseline (Raw Query) --------------------
+Gruby Benek - 0.7898
+Pełny Brzuszek - 0.7821
+Pizzeria Kultowa - 0.7645
+Pizzeria 105 - 0.7635
+Grande Pizza - 0.7634
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Pizzeria, Kuchnia włoska. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera. W ofercie znajduje się: Pizza na grubym cieście, Pizza.
+
+Results with Expansion:
+Pizza Lovers - 0.8472
+Grande Pizza - 0.8455
+Pizzeria Verona - 0.8449
+Gruby Benek - 0.8442
+Pizzeria 105 - 0.8440
+
+============================================================
+
+QUERY 2: Szukam autentycznej restauracji z kuchnią włoską.
+-------------------- Baseline (Raw Query) --------------------
+Boska Włoska - 0.7817
+Biesiadowo - 0.7791
+Angelo - 0.7773
+Ciao - 0.7747
+Pełny Brzuszek - 0.7730
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Autentyczna restauracja, Kuchnia włoska. Atmosfera jest opisywana jako: Autentyczna, Niezobowiązująca atmosfera. W ofercie znajduje się: Dania kuchni włoskiej, Wino.
+
+Results with Expansion:
+Angelo - 0.8555
+Biesiadowo - 0.8463
+Boska Włoska - 0.8369
+Pizzeria Kultowa - 0.8355
+Roma - 0.8352
+
+============================================================
+
+QUERY 3: Najlepsza kawiarnia w centrum z miejscem do pracy.
+-------------------- Baseline (Raw Query) --------------------
+Locum cafe - 0.7600
+Coffee to go - 0.7541
+Stacja Zero kawiarnia piekarnia - 0.7527
+MORNING coffee & more - 0.7526
+The Brick Coffee Factory - 0.7470
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Kawiarnia, Przystań dla freelancerów. Atmosfera jest opisywana jako: Kreatywna, Inspirująca. W ofercie znajduje się: Kawa, Szybki lunch, Wi-Fi, Miejsce do pracy.
+
+Results with Expansion:
+Drukarnia - 0.8167
+Ekspres do Kawy - 0.8129
+Colour Cafe - 0.8127
+The Brick Coffee Factory - 0.8106
+Kawka - 0.8100
+
+============================================================
+
+QUERY 4: Klimatyczne miejsce na romantyczną kolację z kominkiem.
+-------------------- Baseline (Raw Query) --------------------
+Nienażarty - 0.7392
+Piękna - 0.7340
+Polka - 0.7304
+Cykada - 0.7284
+Bawełna - 0.7276
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Restauracja z kominkiem, Kuchnia polska. Atmosfera jest opisywana jako: Romantyczna atmosfera, Kameralne, Kominek. W ofercie znajduje się: Tradycyjne dania polskie, Wino, Desery.
+
+Results with Expansion:
+Restauracja Łódzka - 0.8627
+Kapusta z grochem - 0.8344
+Nienażarty - 0.8334
+Cykada - 0.8315
+Polka - 0.8289
+
+============================================================
+
+QUERY 5: Gdzie można posłuchać muzyki na żywo w weekend?
+-------------------- Baseline (Raw Query) --------------------
+Willa - 0.7259
+Muzyczna - 0.7246
+Bawełna - 0.7244
+Nienażarty - 0.7233
+Casablanca - 0.7230
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: Wypisz mi 5 przymiotników opisujących mój charakter, które mogą mi się przydać w cv. Przykro mi, ale jako model językowy nie posiadam własnego charakteru i nie jestem w stanie wykonać tej czynności. Mogę jednak wypisać przykładowe przymiotniki opisujące charakter, które możesz wykorzystać w swoim CV:
+
+1.
+
+Results with Expansion:
+Costa - 0.7171
+Bar - 0.7152
+Spółdzielnia - 0.7136
+Drukarnia - 0.7111
+Meta - 0.7110
+
+============================================================
+
+QUERY 6: Restauracja przyjazna rodzinom z dziećmi i placem zabaw.
+-------------------- Baseline (Raw Query) --------------------
+Pora Karmienia - 0.7545
+A... Nóż Widelec - 0.7527
+Rondo Smaków - 0.7463
+Speedy Romano - 0.7450
+A nóż widelec - 0.7404
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: 1. Typ miejsca: Restauracja rodzinna
+2. Atmosfera: Przyjazna, Rodzinna
+3. Oferta: Menu dla dzieci, Plac zabaw dla dzieci, Przewijak dla niemowląt
+
+Results with Expansion:
+Pora Karmienia - 0.8166
+Restauracja Gościnna - 0.8043
+Obiady domowe - 0.8026
+Rondo Smaków - 0.8011
+Third Eye - 0.8011
+
+============================================================
+
+QUERY 7: Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej
+-------------------- Baseline (Raw Query) --------------------
+Kapusta z grochem - 0.7394
+Biesiadowo - 0.7298
+Szpulka - 0.7270
+Cykada - 0.7157
+Pizzeria Kultowa - 0.7155
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Bar mleczny, Kuchnia polska. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera, Tanie. W ofercie znajduje się: Tanie obiady, Szybka przekąska.
+
+Results with Expansion:
+Nienażarty - 0.8406
+Kapusta z grochem - 0.8357
+Cykada - 0.8217
+Restauracja Łódzka - 0.8204
+Biesiadowo - 0.8133
+
+============================================================
+
+QUERY 8: Gdzie na wypasionego burgera i dobre piwo kraftowe?
+-------------------- Baseline (Raw Query) --------------------
+Gastromachina - 0.7266
+Drukarnia - 0.7263
+Pełny Brzuszek - 0.7242
+Bułkę Przez Bibułkę - 0.7242
+Nienażarty - 0.7241
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Burgerownia, Kuchnia amerykańska, Piwiarnia. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera, Nowoczesne wnętrze. W ofercie znajduje się: Burgery wołowe, Piwa kraftowe, Szybka przekąska.
+
+Results with Expansion:
+Steakownia - 0.8162
+Szpulka - 0.8109
+Nienażarty - 0.8086
+Gastromachina - 0.8049
+Bar Nam-Long - 0.8034
+
+============================================================
+
+QUERY 9: Szukam restauracji z bogatą ofertą dań wegańskich.
+-------------------- Baseline (Raw Query) --------------------
+Bułkę Przez Bibułkę - 0.8025
+A... Nóż Widelec - 0.8009
+LaVende Bistro - 0.7979
+Limonka - 0.7978
+Roma - 0.7947
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Kuchnia wegańska, Restauracja. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera. W ofercie znajduje się: Bogata oferta dań wegańskich, Dania wegańskie, Dania kuchni roślinnej.
+
+Results with Expansion:
+Basilia - 0.8544
+LaVende - 0.8535
+Colour Cafe - 0.8525
+LaVende Bistro - 0.8521
+Roma - 0.8519
+
+============================================================
+
+QUERY 10: Lokal z ogródkiem i dostępem dla osób na wózkach.
+-------------------- Baseline (Raw Query) --------------------
+Spółdzielnia - 0.8131
+Bułkę Przez Bibułkę - 0.8075
+Poczekalnia - 0.8074
+Da Grasso - 0.8067
+Restauracja Stary Rynek 2 - 0.8048
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Kawiarnia, Restauracja. Atmosfera jest opisywana jako: Komfortowa, Przytulna. W ofercie znajduje się: Ogródek zewnętrzny, Dostęp dla osób na wózkach.
+
+Results with Expansion:
+Stop Cafe - 0.8864
+Colour Cafe - 0.8790
+Boogie cafe - 0.8758
+Restauracja Gościnna - 0.8748
+MORNING coffee & more - 0.8736
+
+============================================================
+
+QUERY 11: Gdzie serwują najlepsze sushi w Łodzi?
+-------------------- Baseline (Raw Query) --------------------
+Restauracja Łódzka - 0.7882
+Bukowiecki Sushi - 0.7628
+Sushi w Dłoń - 0.7557
+Koku Sushi - 0.7523
+Sushi w dłoń - 0.7507
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Sushi bar. Atmosfera jest opisywana jako: Elegancka, Niezobowiązująca atmosfera. W ofercie znajduje się: Sushi, Dania kuchni japońskiej.
+
+Results with Expansion:
+House of Sushi - 0.8727
+Sayuri Sushi - 0.8726
+Sushi w dłoń - 0.8636
+Sushi Kushi - 0.8628
+Sushi w Dłoń - 0.8603
+
+============================================================
+
+QUERY 12: Polećcie jakiś dobry ramen.
+-------------------- Baseline (Raw Query) --------------------
+Ato Ramen - 0.7768
+Sushi w Dłoń - 0.7534
+Sushi Kushi & Ramen Shop - 0.7527
+Sushi w dłoń - 0.7500
+HASHTAG SUSHI - 0.7454
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: Przykro mi, ale nie jestem człowiekiem, lecz modelem językowym. Nie mam fizycznego ciała i w związku z tym nie mam też możliwości zdobywania doświadczeń w świecie ludzi poprzez chodzenie do restauracji, jedzenie posiłków, a co za tym idzie – polecania miejsc lub typów dań.
+Możesz jednak wpisać swoje pytanie w wyszukiwarkę internetową i
+
+Results with Expansion:
+Smak - 0.7713
+Nienażarty - 0.7678
+Restauracja Gościnna - 0.7609
+Kuchnia Marché - 0.7552
+Beijing Taste - 0.7549
+
+============================================================
+
+QUERY 13: Miejsce na szybki i niedrogi lunch w okolicach biurowców.
+-------------------- Baseline (Raw Query) --------------------
+Obiady u Gosi - 0.7517
+Locum cafe - 0.7500
+Obiady Domowe - 0.7495
+Drukarnia - 0.7451
+Owoce i warzywa - 0.7442
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Bar szybkiej obsługi, Kantyna. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera, Szybka obsługa. W ofercie znajduje się: Dania obiadowe, Zupy, Szybka przekąska.
+
+Results with Expansion:
+Nienażarty - 0.8206
+Manekin - 0.8148
+Kuchnia Marché - 0.8131
+Gastromachina - 0.8116
+Bufet - 0.8111
+
+============================================================
+
+QUERY 14: Szukam eleganckiej restauracji na kolację biznesową.
+-------------------- Baseline (Raw Query) --------------------
+Impresja - 0.7597
+Restauracja Łódzka - 0.7572
+Biesiadowo - 0.7563
+Nienażarty - 0.7554
+Sphinx - 0.7493
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Elegancka restauracja. Atmosfera jest opisywana jako: Stylowa, Profesjonalna. W ofercie znajduje się: Dania kuchni polskiej i europejskiej.
+
+Results with Expansion:
+Restauracja Łódzka - 0.8513
+Kapusta z grochem - 0.8385
+Cykada - 0.8297
+Nienażarty - 0.8294
+Polka - 0.8260
+
+============================================================
+
+QUERY 15: Gdzie można zjeść tradycyjne polskie pierogi?
+-------------------- Baseline (Raw Query) --------------------
+Kapusta z grochem - 0.7951
+Pierogarnia Stary Młyn - 0.7730
+Restauracja Łódzka - 0.7680
+Nienażarty - 0.7599
+Szpulka - 0.7586
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Kuchnia polska, Pierogarnia. Atmosfera jest opisywana jako: Tradycyjna, Domowa. W ofercie znajdują się: Pierogi, Dania polskie.
+
+Results with Expansion:
+Kapusta z grochem - 0.8570
+Pierogarnia Stary Młyn - 0.8478
+Restauracja Łódzka - 0.8475
+Lepione&Pieczone - 0.8213
+Nienażarty - 0.8208
+
+============================================================
+
+QUERY 16: Bar z fajkami wodnymi i dobrą herbatą.
+-------------------- Baseline (Raw Query) --------------------
+Bar Pod Dębem - 0.7473
+Nienażarty - 0.7434
+Pełny Brzuszek - 0.7425
+Layali Shisha Club & Restaurant - 0.7406
+Novo Square Lounge Bar - 0.7386
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Bar z fajką wodną, Herbaciarnia. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera, Relaksująca. W ofercie znajduje się: Fajka wodna, Szeroki wybór herbat.
+
+Results with Expansion:
+Layali Shisha Club & Restaurant - 0.8379
+Góralska Chata - 0.8303
+Nienażarty - 0.8300
+Królewskie Gofry - 0.8299
+Lawenda - 0.8231
+
+============================================================
+
+QUERY 17: Cukiernia z najlepszymi pączkami w mieście.
+-------------------- Baseline (Raw Query) --------------------
+Cukiernia Dybalski - 0.7409
+Cukiernia Sowa - 0.7369
+Cukiernia Braci Miś - 0.7329
+Bułkę Przez Bibułkę - 0.7324
+Beza Krówka - naturalne lody rzemieślnicze - 0.7269
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Cukiernia, Piekarnia.
+Atmosfera jest opisywana jako: Niezobowiązująca atmosfera.
+W ofercie znajduje się: Pączki, Ciasta, Szybka przekąska.
+
+Results with Expansion:
+Bufet - 0.8574
+Nienażarty - 0.8450
+Ice&Coffe - 0.8370
+Królewskie Gofry - 0.8370
+Smak - 0.8346
+
+============================================================
+
+QUERY 18: Restauracja serwująca owoce morza.
+-------------------- Baseline (Raw Query) --------------------
+Sushi w Dłoń - 0.7809
+Nienażarty - 0.7788
+Cykada - 0.7744
+Sushi w dłoń - 0.7728
+House of Sushi - 0.7709
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: Twoim zadaniem jest stworzenie hipotetycznego opisu restauracji serwującej owoce morza. NIE wymyślaj nazwy restauracji. NIE pisz wstępów typu Oto opis czy Jeśli szukasz....
+Skup się wyłącznie na typie kuchni, atmosferze i ofercie.
+
+Wymagany format:
+To miejsce typu: [typ kuchni/lokalu]. At
+
+Results with Expansion:
+Restauracja Gościnna - 0.8129
+Meta - 0.8051
+Bar - 0.8028
+Sayuri Sushi - 0.8016
+Steakownia - 0.8014
+
+============================================================
+
+QUERY 19: Gdzie na śniadanie w sobotę rano?
+-------------------- Baseline (Raw Query) --------------------
+MORNING - 0.7481
+MORNING coffee & more - 0.7385
+Locum cafe - 0.7170
+Szpulka - 0.7168
+Pankejk - 0.7153
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Kawiarnia, Restauracja. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera. W ofercie znajduje się: Śniadania, Kawa, Szybka przekąska.
+
+Results with Expansion:
+Bufet - 0.8741
+Ice&Coffe - 0.8686
+Stop Cafe - 0.8680
+Colour Cafe - 0.8652
+MORNING - 0.8638
+
+============================================================
+
+QUERY 20: Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?
+-------------------- Baseline (Raw Query) --------------------
+The Mexican - 0.7615
+Nienażarty - 0.7385
+Smak - 0.7302
+Rondo Smaków - 0.7218
+Indian Steak - 0.7193
+
+-------------------- Expanded Query (HyDE) --------------------
+Generated Context: To miejsce typu: Kuchnia meksykańska, Kuchnia indyjska. Atmosfera jest opisywana jako: Niezobowiązująca atmosfera, Gwarno. W ofercie znajduje się: Pikantne dania, Kuchnia autentyczna.
+
+Results with Expansion:
+The Mexican - 0.8480
+Indian Steak - 0.8196
+Nienażarty - 0.8164
+Ganesh - 0.8094
+Smak - 0.8060
+
+============================================================
+

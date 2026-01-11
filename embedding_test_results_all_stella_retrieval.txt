@@ -1,0 +1,654 @@
+Test mode: RETRIEVAL
+
+============================== TEST SET: MEAN (Pełny kontekst) ==============================
+Query: Gdzie zjem dobrą pizzę na grubym cieście?
+Retrieved docs:
+Saga - 0.5657
+Bufet - 0.5625
+Pizzeria 105 - 0.5587
+Małgosia - 0.5563
+Costa - 0.5550
+----------------------------------------
+Query: Szukam autentycznej restauracji z kuchnią włoską.
+Retrieved docs:
+Bufet - 0.6601
+Karczma Raz na Wozie - 0.6595
+Pizza Lovers - 0.6213
+Stare Kino - 0.6208
+Saga - 0.6194
+----------------------------------------
+Query: Najlepsza kawiarnia w centrum z miejscem do pracy.
+Retrieved docs:
+Saga - 0.5750
+Karczma Raz na Wozie - 0.5693
+Bufet - 0.5657
+Costa - 0.5603
+Colour Cafe - 0.5587
+----------------------------------------
+Query: Klimatyczne miejsce na romantyczną kolację z kominkiem.
+Retrieved docs:
+Bufet - 0.6022
+Karczma Raz na Wozie - 0.5981
+Kawka - 0.5902
+Bubamara - 0.5886
+Pizza Lovers - 0.5779
+----------------------------------------
+Query: Gdzie można posłuchać muzyki na żywo w weekend?
+Retrieved docs:
+Igraszka - 0.6331
+Fabrykant - 0.6284
+Stare Kino - 0.6262
+Karczma Raz na Wozie - 0.6215
+Bicykl - 0.6208
+----------------------------------------
+Query: Restauracja przyjazna rodzinom z dziećmi i placem zabaw.
+Retrieved docs:
+Bufet - 0.6136
+Karczma Raz na Wozie - 0.6039
+Stare Kino - 0.5808
+Rondo Smaków - 0.5776
+Lawenda - 0.5760
+----------------------------------------
+Query: Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej
+Retrieved docs:
+Gruby Benek - 0.5301
+Bufet - 0.5270
+Pizza Hut - 0.5220
+Złoty Smok - 0.5207
+Pizza Lovers - 0.5207
+----------------------------------------
+Query: Gdzie na wypasionego burgera i dobre piwo kraftowe?
+Retrieved docs:
+Karczma Raz na Wozie - 0.6777
+Bufet - 0.6760
+Igraszka - 0.6528
+Masala Trail - 0.6505
+GastroMachina - 0.6500
+----------------------------------------
+Query: Szukam restauracji z bogatą ofertą dań wegańskich.
+Retrieved docs:
+Masala Trail - 0.6569
+Bufet - 0.6453
+Karczma Raz na Wozie - 0.6351
+Kofeina - 0.6270
+Colour Cafe - 0.6231
+----------------------------------------
+Query: Lokal z ogródkiem i dostępem dla osób na wózkach.
+Retrieved docs:
+Street Tea - 0.6765
+Bicykl - 0.6602
+Fabrykant - 0.6589
+Ekspres Do Kawy - 0.6429
+Bubamara - 0.6394
+----------------------------------------
+Query: Gdzie serwują najlepsze sushi w Łodzi?
+Retrieved docs:
+Sushi Kushi - 0.4750
+Bufet - 0.4742
+New York Hot Dog - 0.4661
+Pizza Lovers - 0.4621
+Hana Sushi - 0.4619
+----------------------------------------
+Query: Polećcie jakiś dobry ramen.
+Retrieved docs:
+Piękna - 0.6199
+Igraszka - 0.6172
+Bufet - 0.6129
+Cukiernia Dybalski - 0.6096
+Karczma Raz na Wozie - 0.6049
+----------------------------------------
+Query: Miejsce na szybki i niedrogi lunch w okolicach biurowców.
+Retrieved docs:
+Bufet - 0.6564
+Karczma Raz na Wozie - 0.6435
+Bar Nam-Long - 0.6264
+Pizza Lovers - 0.6203
+Saga - 0.6150
+----------------------------------------
+Query: Szukam eleganckiej restauracji na kolację biznesową.
+Retrieved docs:
+Bufet - 0.6530
+Karczma Raz na Wozie - 0.6235
+New York Hot Dog - 0.6216
+Pizza Lovers - 0.6141
+Małgosia - 0.6060
+----------------------------------------
+Query: Gdzie można zjeść tradycyjne polskie pierogi?
+Retrieved docs:
+Karczma Raz na Wozie - 0.5296
+Bufet - 0.5243
+Masala Trail - 0.5166
+Pod Jabłonką - 0.5126
+Hana Sushi - 0.5032
+----------------------------------------
+Query: Bar z fajkami wodnymi i dobrą herbatą.
+Retrieved docs:
+Fabrykant - 0.6453
+Bufet - 0.6405
+Karczma Raz na Wozie - 0.6373
+Igraszka - 0.6347
+Bicykl - 0.6330
+----------------------------------------
+Query: Cukiernia z najlepszymi pączkami w mieście.
+Retrieved docs:
+Montag - 0.5432
+Bufet - 0.5338
+Kawka - 0.5211
+Saga - 0.5127
+Karczma Raz na Wozie - 0.5119
+----------------------------------------
+Query: Restauracja serwująca owoce morza.
+Retrieved docs:
+Bufet - 0.6846
+Karczma Raz na Wozie - 0.6762
+Małgosia - 0.6357
+New York Hot Dog - 0.6293
+Lawenda - 0.6267
+----------------------------------------
+Query: Gdzie na śniadanie w sobotę rano?
+Retrieved docs:
+Karczma Raz na Wozie - 0.6367
+Bufet - 0.6360
+Igraszka - 0.6277
+Fabrykant - 0.6230
+Stare Kino - 0.6227
+----------------------------------------
+Query: Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?
+Retrieved docs:
+GeoBistro - 0.5828
+Sushi Kushi - 0.5706
+Bar Orientalny Phuong Thao - 0.5654
+Hana Sushi - 0.5638
+Masala Trail - 0.5620
+----------------------------------------
+
+
+============================== TEST SET: CLS (Pełny kontekst) ==============================
+Query: Gdzie zjem dobrą pizzę na grubym cieście?
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Szukam autentycznej restauracji z kuchnią włoską.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Najlepsza kawiarnia w centrum z miejscem do pracy.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Klimatyczne miejsce na romantyczną kolację z kominkiem.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Gdzie można posłuchać muzyki na żywo w weekend?
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Restauracja przyjazna rodzinom z dziećmi i placem zabaw.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Gdzie na wypasionego burgera i dobre piwo kraftowe?
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Szukam restauracji z bogatą ofertą dań wegańskich.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Lokal z ogródkiem i dostępem dla osób na wózkach.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Gdzie serwują najlepsze sushi w Łodzi?
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Polećcie jakiś dobry ramen.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Miejsce na szybki i niedrogi lunch w okolicach biurowców.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Szukam eleganckiej restauracji na kolację biznesową.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Gdzie można zjeść tradycyjne polskie pierogi?
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Bar z fajkami wodnymi i dobrą herbatą.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Cukiernia z najlepszymi pączkami w mieście.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Restauracja serwująca owoce morza.
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Gdzie na śniadanie w sobotę rano?
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+Query: Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?
+Retrieved docs:
+LaVende - 0.4036
+Obiady domowe - 0.4036
+Fabrykant - 0.4036
+Manekin - 0.4036
+Biesiadowo - 0.4036
+----------------------------------------
+
+
+============================== TEST SET: MEAN (Tylko słowa kluczowe) ==============================
+Query: Gdzie zjem dobrą pizzę na grubym cieście?
+Retrieved docs:
+Ice&Coffe - 0.6279
+Kawka - 0.6212
+Dybalski - 0.6152
+Ferment - 0.6130
+Saga - 0.6038
+----------------------------------------
+Query: Szukam autentycznej restauracji z kuchnią włoską.
+Retrieved docs:
+Kapusta z grochem - 0.7201
+Karczma Raz na Wozie - 0.7091
+Ekspres Do Kawy - 0.7055
+Kucak - 0.6955
+Beza Krówka - naturalne lody rzemieślnicze - 0.6946
+----------------------------------------
+Query: Najlepsza kawiarnia w centrum z miejscem do pracy.
+Retrieved docs:
+Karczma Raz na Wozie - 0.6302
+Pizza Lovers - 0.6103
+Kapusta z grochem - 0.6081
+Ekspres Do Kawy - 0.5940
+Basilia - 0.5926
+----------------------------------------
+Query: Klimatyczne miejsce na romantyczną kolację z kominkiem.
+Retrieved docs:
+Kapusta z grochem - 0.6404
+Karczma Raz na Wozie - 0.6315
+Beza Krówka - naturalne lody rzemieślnicze - 0.6209
+Ekspres Do Kawy - 0.6086
+Wok-Art - 0.6033
+----------------------------------------
+Query: Gdzie można posłuchać muzyki na żywo w weekend?
+Retrieved docs:
+Kapusta z grochem - 0.6889
+Karczma Raz na Wozie - 0.6831
+Ekspres Do Kawy - 0.6828
+Masala Trail - 0.6741
+Beza Krówka - naturalne lody rzemieślnicze - 0.6688
+----------------------------------------
+Query: Restauracja przyjazna rodzinom z dziećmi i placem zabaw.
+Retrieved docs:
+Obiady domowe - 0.6489
+A-Dong - 0.6286
+Kapusta z grochem - 0.6257
+Karczma Raz na Wozie - 0.6202
+Beza Krówka - naturalne lody rzemieślnicze - 0.6189
+----------------------------------------
+Query: Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej
+Retrieved docs:
+Phuong Dong - 0.6223
+Obiady Domowe - 0.5706
+Lepione&Pieczone - 0.5631
+Sayuri Sushi - 0.5552
+Bar Orientalny Phuong Thao - 0.5485
+----------------------------------------
+Query: Gdzie na wypasionego burgera i dobre piwo kraftowe?
+Retrieved docs:
+Karczma Raz na Wozie - 0.7294
+Kapusta z grochem - 0.7268
+Thai Wok - 0.7110
+Masala Trail - 0.7084
+Ekspres Do Kawy - 0.7053
+----------------------------------------
+Query: Szukam restauracji z bogatą ofertą dań wegańskich.
+Retrieved docs:
+Thai Wok - 0.7041
+Kofeina - 0.7027
+Wok-Art - 0.6888
+Masala Trail - 0.6872
+Kapusta z grochem - 0.6727
+----------------------------------------
+Query: Lokal z ogródkiem i dostępem dla osób na wózkach.
+Retrieved docs:
+Bicykl - 0.7487
+Montag - 0.7480
+Ekspres Do Kawy - 0.7463
+Dwór Artusa - 0.7325
+Fabrykant - 0.7279
+----------------------------------------
+Query: Gdzie serwują najlepsze sushi w Łodzi?
+Retrieved docs:
+Wok-Art - 0.4881
+Thai Wok - 0.4880
+Kapusta z grochem - 0.4852
+Karczma Raz na Wozie - 0.4840
+Bar Nam-Long - 0.4818
+----------------------------------------
+Query: Polećcie jakiś dobry ramen.
+Retrieved docs:
+Ekspres Do Kawy - 0.7053
+Kucak - 0.7014
+Karczma Raz na Wozie - 0.7012
+Kapusta z grochem - 0.6984
+Fabrykant - 0.6854
+----------------------------------------
+Query: Miejsce na szybki i niedrogi lunch w okolicach biurowców.
+Retrieved docs:
+Kapusta z grochem - 0.7260
+Karczma Raz na Wozie - 0.7133
+Pizza Lovers - 0.7091
+A-Dong - 0.7057
+Beza Krówka - naturalne lody rzemieślnicze - 0.7046
+----------------------------------------
+Query: Szukam eleganckiej restauracji na kolację biznesową.
+Retrieved docs:
+Pizza Lovers - 0.6562
+Wok-Art - 0.6543
+Karczma Raz na Wozie - 0.6470
+Ekspres Do Kawy - 0.6383
+Kapusta z grochem - 0.6359
+----------------------------------------
+Query: Gdzie można zjeść tradycyjne polskie pierogi?
+Retrieved docs:
+Kucak - 0.5715
+Thai Wok - 0.5651
+Masala Trail - 0.5635
+Kapusta z grochem - 0.5559
+Karczma Raz na Wozie - 0.5520
+----------------------------------------
+Query: Bar z fajkami wodnymi i dobrą herbatą.
+Retrieved docs:
+Kapusta z grochem - 0.7215
+Karczma Raz na Wozie - 0.7167
+Thai Wok - 0.7086
+Pod Jabłonką - 0.7082
+Bar Nam-Long - 0.7060
+----------------------------------------
+Query: Cukiernia z najlepszymi pączkami w mieście.
+Retrieved docs:
+Karczma Raz na Wozie - 0.5726
+Beza Krówka - naturalne lody rzemieślnicze - 0.5724
+Saga - 0.5606
+Kapusta z grochem - 0.5555
+Pizza Lovers - 0.5491
+----------------------------------------
+Query: Restauracja serwująca owoce morza.
+Retrieved docs:
+Karczma Raz na Wozie - 0.7124
+Kapusta z grochem - 0.7117
+Ekspres Do Kawy - 0.6931
+Beza Krówka - naturalne lody rzemieślnicze - 0.6879
+Pizza Lovers - 0.6776
+----------------------------------------
+Query: Gdzie na śniadanie w sobotę rano?
+Retrieved docs:
+Kapusta z grochem - 0.7012
+Karczma Raz na Wozie - 0.6954
+Ekspres Do Kawy - 0.6862
+Thai Wok - 0.6808
+Pizza Lovers - 0.6662
+----------------------------------------
+Query: Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?
+Retrieved docs:
+Karczma Raz na Wozie - 0.6141
+GeoBistro - 0.6092
+Kapusta z grochem - 0.5957
+Ekspres do Kawy - 0.5932
+Kucak - 0.5928
+----------------------------------------
+
+
+============================== TEST SET: CLS (Tylko słowa kluczowe) ==============================
+Query: Gdzie zjem dobrą pizzę na grubym cieście?
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Szukam autentycznej restauracji z kuchnią włoską.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Najlepsza kawiarnia w centrum z miejscem do pracy.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Klimatyczne miejsce na romantyczną kolację z kominkiem.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Gdzie można posłuchać muzyki na żywo w weekend?
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Restauracja przyjazna rodzinom z dziećmi i placem zabaw.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Tanie jedzenie dla studenta, najlepiej blisko Piotrkowskiej
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Gdzie na wypasionego burgera i dobre piwo kraftowe?
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Szukam restauracji z bogatą ofertą dań wegańskich.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Lokal z ogródkiem i dostępem dla osób na wózkach.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Gdzie serwują najlepsze sushi w Łodzi?
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Polećcie jakiś dobry ramen.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Miejsce na szybki i niedrogi lunch w okolicach biurowców.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Szukam eleganckiej restauracji na kolację biznesową.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Gdzie można zjeść tradycyjne polskie pierogi?
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Bar z fajkami wodnymi i dobrą herbatą.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Cukiernia z najlepszymi pączkami w mieście.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Restauracja serwująca owoce morza.
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Gdzie na śniadanie w sobotę rano?
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+Query: Mam ochotę na coś ostrego, może kuchnia meksykańska albo indyjska?
+Retrieved docs:
+Małgosia - 0.7646
+Złoty Smok - 0.7635
+Złota Kaczka - 0.7635
+Zahir - 0.7635
+House of Sushi - 0.7399
+----------------------------------------
+
+
