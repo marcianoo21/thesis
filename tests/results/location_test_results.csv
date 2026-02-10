@@ -1,0 +1,48 @@
+Original_Query,Detected_Location_Formal,Detection_Method,Coordinates
+Gdzie zjem dobrą pizzę na pietrynie?,Ulica Piotrkowska,LLM (Intent Analysis),"(51.7768912, 19.4569829)"
+Szukam kawy koło manu,Manufaktura,LLM (Intent Analysis),"(51.7794645, 19.4444597)"
+Jakiś tani bar przy polibudzie,Politechnika Łódzka,LLM (Intent Analysis),"(51.752577, 19.4529575)"
+Restauracja na offie,BRAK,None,BRAK
+Coś do jedzenia blisko kaliskiego,Łódź,LLM (Intent Analysis),"(51.7687323, 19.4569911)"
+Obiad w okolicach fabrycznego,Fabryczny,LLM (Intent Analysis),"(51.7699461, 19.4700518)"
+Gdzie na piwo na lumumbowie?,Lumumbowo,LLM (Intent Analysis),"(51.779977, 19.4942335)"
+Szukam jedzenia przy stajni jednorożców,Stajnia Jednorożców,LLM (Intent Analysis),"(51.7592338, 19.4570859)"
+Kebab na górniaku,Górniak,LLM (Intent Analysis),"(51.742419, 19.4662528)"
+Lody na księżym młynie,Księży Młyn,LLM (Intent Analysis),"(51.7552029, 19.4788867)"
+Kolacja w monopolis,Monopolis,LLM (Intent Analysis),"(51.7632887, 19.4854294)"
+Coś wegańskiego blisko galerii,nearby the gallery,LLM (Intent Analysis),BRAK 
+Burger na retkini,Retkinia,LLM (Intent Analysis),"(51.7479363, 19.4046298)"
+Pizza na widzewie,Widzew,LLM (Intent Analysis),"(51.7539197, 19.5181755)"
+Jedzenie na teofilowie,Teofilów,LLM (Intent Analysis),"(51.79428, 19.384356)"
+Sushi na bałutach,"Bałuty, Łódź",LLM (Intent Analysis),"(51.8015905, 19.4423232)"
+Gdzie zjeść na dąbrowie?,Dąbrowa,LLM (Intent Analysis),"(51.7315141, 19.5040716)"
+Kawiarnia przy placu wolności,Plac Wolności,LLM (Intent Analysis),"(51.7767836, 19.4546995)"
+Restauracja blisko pasażu róży,restauracja blisko pasaż róża,spaCy (NER),BRAK
+Coś dobrego koło atlas areny,Atlas Arena,LLM (Intent Analysis),"(51.7571679, 19.4250895)"
+Obiad po spacerze na zdrowiu,Park na Zdrowiu,LLM (Intent Analysis),"(51.7680049, 19.4116905)"
+Jedzenie blisko fali,blisko Fali,LLM (Intent Analysis),BRAK
+Restauracja przy ec1,BRAK,None,BRAK
+Gdzie na randkę na rudzie?,Ruda,LLM (Intent Analysis),"(51.7057937, 19.4405112)"
+Coś przy stawach jana,Stawach,spaCy (NER),"(51.6449295, 18.7309922)"
+Obiad w porcie,Port Łódź,LLM (Intent Analysis),"(51.7033494, 19.4151749)"
+Jedzenie na radogoszczu,Radogoszcz,LLM (Intent Analysis),"(51.8205869, 19.4307868)"
+Pizza na chojnach,Chojny,LLM (Intent Analysis),"(51.7114308, 19.4858419)"
+Bar mleczny na śródmieściu,Śródmieście,LLM (Intent Analysis),"(51.7618667, 19.4645819)"
+Jedzenie koło beczek grohmana,Beczki Grohmana,LLM (Intent Analysis),"(51.7553675, 19.4739108)"
+Kawa przy białej fabryce,Biała Fabryka,LLM (Intent Analysis),"(51.7455063, 19.4618741)"
+Lunch blisko sądu na placu dąbrowskiego,plac Dąbrowskiego (sąd),LLM (Intent Analysis),BRAK 
+Coś przy Piotrkowskiej 217,Ulica Piotrkowska,LLM (Intent Analysis),"(51.7768912, 19.4569829)"
+Jedzenie na julianowie,Julianów,LLM (Intent Analysis),"(51.8066876, 19.4448409)"
+Restauracja na złotnie,Widzew,LLM (Intent Analysis),"(51.7539197, 19.5181755)"
+Gdzie zjeść na stokach?,wszędzie,LLM (Intent Analysis),BRAK
+Jedzenie przy rondzie solidarności,Rond solidarność,spaCy (NER),BRAK
+Pizza na olechowie,BRAK,None,BRAK
+Obiad przy szpitalu kopernika,szpital Kopernik,spaCy (NER),BRAK
+Coś przy kampusie uł,przy kampusie,LLM (Intent Analysis),BRAK
+Jedzenie na nowym centrum łodzi,Nowe Centrum Łodzi,LLM (Intent Analysis),"(51.7684141, 19.4681409)"
+Restauracja blisko parku śledzia,restauracja blisko park Śledzia,spaCy (NER),"(51.7814376, 19.4552216)"
+Coś przy katedrze,w pobliżu katedry,LLM (Intent Analysis),BRAK
+Jedzenie na rynku bałuckim,Rynek Bałucki,LLM (Intent Analysis),"(51.7875122, 19.4535182)"
+Gdzie na zapiekankę na polesiu?,Polesie,LLM (Intent Analysis),"(51.7572222, 19.4136111)"
+Restauracja blisko teatru wielkiego,Teatr Wielki,LLM (Intent Analysis),"(51.7733465, 19.4696594)"
+Coś przy muzeum włókiennictwa,muzeum włókiennictwo,spaCy (NER),BRAK

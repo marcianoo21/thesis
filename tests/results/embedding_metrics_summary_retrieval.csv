@@ -1,0 +1,5 @@
+Model,Hit Rate@5,MRR,Precision@5
+MEAN (Pełny kontekst),80.00%,0.5600,45.00%
+CLS (Pełny kontekst),85.00%,0.6308,41.00%
+MEAN (Tylko słowa kluczowe),75.00%,0.5917,39.00%
+CLS (Tylko słowa kluczowe),90.00%,0.7625,49.00%

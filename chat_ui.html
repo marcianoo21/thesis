@@ -3,308 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Łódzki Rekomender Restauracji</title>
-    <link rel="icon" href="/static/logo.png">
+    <link rel="icon" type="image/png" href="static/logo.png">
+    <title>Asystent Kulinarny Łódź</title>
     <style>
-        /* Zmienne kolorystyczne dla łatwej edycji motywu */
-        :root {
-            --primary-color: #007bff;       /* Kolor główny (przycisk, dymek usera) */
-            --bg-color: #f0f2f5;            /* Tło całej strony */
-            --chat-bg: #ffffff;             /* Tło okna czatu */
-            --user-msg-bg: #007bff;         /* Tło wiadomości użytkownika */
-            --user-msg-text: #ffffff;       /* Tekst wiadomości użytkownika */
-            --system-msg-bg: #e4e6eb;       /* Tło wiadomości systemu */
-            --system-msg-text: #050505;     /* Tekst wiadomości systemu */
-            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            font-family: var(--font-family);
-            background-color: var(--bg-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 500px; /* Szerokość okna czatu */
-            height: 85vh;
-            background-color: var(--chat-bg);
-            border-radius: 18px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* Nagłówek czatu */
-        .chat-header {
-            padding: 15px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #333;
-        }
-
-        .chat-header .avatar-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 12px;
-            object-fit: cover;
-        }
-
-        /* Obszar wiadomości */
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background-color: var(--chat-bg);
-        }
-
-        .message {
-            display: flex;
-            align-items: flex-end;
-            max-width: 80%;
-            margin-bottom: 5px;
-        }
-
-        .message.user {
-            align-self: flex-end;
-            flex-direction: row-reverse;
-        }
-
-        .message.system {
-            align-self: flex-start;
-        }
-
-        .avatar-small {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            margin: 0 8px;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; }
+        h1 { text-align: center; color: #333; }
         
-        .avatar-small img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .bubble {
-            padding: 10px 16px;
-            border-radius: 18px;
-            font-size: 0.95rem;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .message.user .bubble {
-            background-color: var(--user-msg-bg);
-            color: var(--user-msg-text);
-            border-bottom-right-radius: 4px;
-        }
-
-        .message.system .bubble {
-            background-color: var(--system-msg-bg);
-            color: var(--system-msg-text);
-            border-bottom-left-radius: 4px;
-        }
-
-        /* Obszar wpisywania tekstu */
-        .chat-input-area {
-            padding: 15px;
+        #chat-container { background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; height: 80vh; }
+        
+        #chat-box { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .message { max-width: 80%; padding: 10px 15px; border-radius: 15px; line-height: 1.5; }
+        .user { align-self: flex-end; background-color: #007bff; color: white; border-bottom-right-radius: 2px; }
+        .bot { align-self: flex-start; background-color: #e9ecef; color: #333; border-bottom-left-radius: 2px; }
+        
+        /* Style dla przykładowych zapytań */
+        .suggestions { padding: 10px 20px; background-color: #f8f9fa; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 8px; }
+        .chip {
             background-color: #fff;
-            border-top: 1px solid #eee;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            padding: 12px 15px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 20px;
-            outline: none;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--primary-color);
-        }
-
-        button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 0.9em;
             cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s;
+            transition: all 0.2s;
+            color: #555;
+            text-align: left;
         }
+        .chip:hover { background-color: #e2e6ea; border-color: #adb5bd; color: #333; }
+        
+        .input-area { display: flex; padding: 20px; background: white; border-top: 1px solid #eee; }
+        input[type="text"] { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-size: 16px; }
+        input[type="text"]:focus { border-color: #007bff; }
+        button#send-btn { margin-left: 10px; padding: 10px 25px; background-color: #007bff; color: white; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+        button#send-btn:hover { background-color: #0056b3; }
+        
+        /* Markdown styling fix */
+        .bot strong { font-weight: 600; }
+        .bot ul { padding-left: 20px; margin: 5px 0; }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+        /* Opening Hours Styling */
+        details { margin-top: 5px; border: 1px solid #eee; border-radius: 5px; padding: 5px; background-color: #fff; }
+        summary { cursor: pointer; color: #007bff; font-weight: 600; outline: none; list-style: none; user-select: none; }
+        summary::-webkit-details-marker { display: none; } /* Hide default marker in Chrome */
+        summary:hover { text-decoration: underline; }
+        .hours-content { font-size: 0.9em; padding-left: 10px; margin-top: 5px; color: #555; line-height: 1.4; }
 
-        /* Animacja trzech kropek (Typing Indicator) */
-        .typing-indicator {
-            display: none; /* Domyślnie ukryte */
-            align-self: flex-start;
-            margin-left: 44px; /* Dopasowanie do avatara */
-            margin-bottom: 10px;
-            background-color: var(--system-msg-bg);
-            padding: 12px 16px;
-            border-radius: 18px;
-            border-bottom-left-radius: 4px;
-            width: fit-content;
-        }
-
-        .typing-indicator span {
-            display: inline-block;
-            width: 6px;
+        /* Slider & Controls */
+        .controls-area { padding: 15px 20px; background: #fff; border-top: 1px solid #eee; display: flex; align-items: center; justify-content: center; gap: 15px; font-size: 0.9em; color: #555; }
+        .slider-container { display: flex; align-items: center; gap: 10px; width: 50%; max-width: 300px; }
+        input[type=range] { 
+            flex-grow: 1; 
+            cursor: pointer; 
             height: 6px;
-            background-color: #888;
+            background: #e9ecef;
+            border-radius: 5px;
+            appearance: none;
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #007bff;
             border-radius: 50%;
-            animation: typing 1.4s infinite both;
-            margin: 0 2px;
+            cursor: pointer;
+            transition: background .15s ease-in-out;
         }
-
-        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-            40% { transform: scale(1); opacity: 1; }
+        input[type=range]::-webkit-slider-thumb:hover {
+            background: #0056b3;
         }
+        .price-label { min-width: 90px; font-weight: bold; color: #007bff; text-align: right; }
+
+        /* Spinner */
+        .loading { display: none; text-align: center; padding: 10px; color: #666; font-style: italic; font-size: 0.9em; }
+        .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.1); border-radius: 50%; border-top-color: #007bff; animation: spin 0.8s linear infinite; vertical-align: middle; margin-right: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-
-<div class="chat-container">
-    <div class="chat-header">
-        <!-- TU WKLEJ SWÓJ OBRAZEK SYSTEMU (src) -->
-        <img src="/static/logo.png" alt="System" class="avatar-img">
-        <span>BoatBot</span>
-    </div>
-
-    <div class="chat-messages" id="chat-messages">
-        <!-- Wiadomość powitalna -->
-        <div class="message system">
-            <div class="avatar-small">
-                <!-- TU WKLEJ SWÓJ OBRAZEK SYSTEMU (src) -->
-                <img src="/static/logo.png" alt="System">
+    <h1>🍽️ Asystent Kulinarny - Łódź</h1>
+    
+    <div id="chat-container">
+        <div id="chat-box">
+            <div class="message bot">
+                Cześć! Jestem Twoim asystentem kulinarnym. Pomogę Ci znaleźć najlepsze restauracje i kawiarnie w Łodzi. Na co masz dzisiaj ochotę?
             </div>
-            <div class="bubble">
-                Hi! What Łódź you like to eat?
+        </div>
+
+        <div id="loading-indicator" class="loading">
+            <div class="spinner"></div> Szukam najlepszych miejsc...
+        </div>
+
+        <!-- Sekcja z przykładowymi zapytaniami -->
+        <div class="suggestions">
+            <button class="chip" onclick="sendQuery('Szukam klimatycznego miejsca na kolację we dwoje.')">Szukam klimatycznego miejsca na kolację we dwoje</button>
+            <button class="chip" onclick="sendQuery('Mam ochotę na dobre sushi w centrum miasta.')">Mam ochotę na dobre sushi w centrum miasta</button>
+            <button class="chip" onclick="sendQuery('Gdzie  zjem najlepszego burgera w okolicach Teofilowa?')">Gdzie  zjem najlepszego burgera w okolicach Teofilowa?</button>
+        </div>
+
+        <div class="controls-area">
+            <span><b>Budżet:</b></span>
+            <div class="slider-container">
+                <input type="range" id="price-slider" min="0" max="3" value="0" step="0.01" oninput="updatePriceLabel(this.value)">
+                <span id="price-label" class="price-label">Dowolny</span>
             </div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Napisz wiadomość..." autocomplete="off">
+            <button id="send-btn" onclick="sendMessage()">Wyślij</button>
         </div>
     </div>
 
-    <!-- Kontener na animację ładowania -->
-    <div class="typing-indicator" id="typing-indicator">
-        <span></span><span></span><span></span>
-    </div>
+    <script>
+        const priceMap = {
+            0: "Dowolny",
+            1: "Tanie ($)",
+            2: "Średnie ($$)",
+            3: "Drogie ($$$)"
+        };
 
-    <div class="chat-input-area">
-        <input type="text" id="user-input" placeholder="Napisz wiadomość..." autocomplete="off">
-        <button onclick="sendMessage()">Wyślij</button>
-    </div>
-</div>
-
-<script>
-    const chatMessages = document.getElementById('chat-messages');
-    const userInput = document.getElementById('user-input');
-    const typingIndicator = document.getElementById('typing-indicator');
-
-    // Ścieżka do obrazka systemu - ZMIEŃ JĄ TUTAJ, aby działała w JS
-    const SYSTEM_ICON_URL = "/static/logo.png";
-
-    function addMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.classList.add('message', sender);
-
-        let contentHTML = '';
-        
-        // Jeśli to system, dodaj avatar
-        if (sender === 'system') {
-            contentHTML += `
-                <div class="avatar-small">
-                    <img src="${SYSTEM_ICON_URL}" alt="System">
-                </div>`;
-        }
-
-        contentHTML += `<div class="bubble">${text}</div>`;
-        messageDiv.innerHTML = contentHTML;
-
-        chatMessages.appendChild(messageDiv);
-        scrollToBottom();
-    }
-
-    function scrollToBottom() {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function showTyping() {
-        typingIndicator.style.display = 'block';
-        scrollToBottom();
-    }
-
-    function hideTyping() {
-        typingIndicator.style.display = 'none';
-    }
-
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        if (text === "") return;
-
-        // 1. Dodaj wiadomość użytkownika
-        addMessage(text, 'user');
-        userInput.value = '';
-
-        // 2. Pokaż animację ładowania
-        showTyping();
-
-        // 3. Komunikacja z backendem (Flask)
-        try {
-            const response = await fetch('http://127.0.0.1:5000/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text })
-            });
+        function updatePriceLabel(val) {
+            const intVal = Math.round(val);
+            const label = document.getElementById('price-label');
+            label.textContent = priceMap[intVal];
             
-            const data = await response.json();
-            hideTyping();
-            addMessage(data.response, 'system');
-        } catch (error) {
-            hideTyping();
-            addMessage("Przepraszam, nie udało się połączyć z serwerem.", 'system');
-            console.error('Error:', error);
+            if (intVal === 1) label.style.color = 'green';
+            else if (intVal === 2) label.style.color = '#d4ac0d'; // Ciemny żółty/złoty dla czytelności
+            else if (intVal === 3) label.style.color = 'red';
+            else label.style.color = '#007bff'; // Domyślny niebieski
         }
-    }
 
-    // Obsługa klawisza Enter
-    userInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
+        let isProcessing = false;
+
+        async function sendMessage() {
+            if (isProcessing) return;
+
+            const input = document.getElementById('user-input');
+            const slider = document.getElementById('price-slider');
+            const message = input.value.trim();
+            const priceLevel = Math.round(parseFloat(slider.value));
+
+            if (!message) return;
+            
+            // Ukryj sugestie po wysłaniu wiadomości
+            const suggestions = document.querySelector('.suggestions');
+            if (suggestions) {
+                suggestions.style.display = 'none';
+            }
+            
+            isProcessing = true;
+            addMessage(message, 'user');
+            input.value = '';
+            input.disabled = true;
+            document.getElementById('send-btn').disabled = true;
+            
+            // Pokaż spinner
+            document.getElementById('loading-indicator').style.display = 'block';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message, price_level: priceLevel })
+                });
+                const data = await response.json();
+                
+                addMessage(data.response, 'bot', true);
+            } catch (error) {
+                addMessage('Przepraszam, wystąpił błąd połączenia z serwerem.', 'bot');
+            } finally {
+                document.getElementById('loading-indicator').style.display = 'none';
+                input.disabled = false;
+                document.getElementById('send-btn').disabled = false;
+                isProcessing = false;
+                input.focus();
+            }
+        }
+
+        function sendQuery(text) {
+            document.getElementById('user-input').value = text;
             sendMessage();
         }
-    });
-</script>
 
+        function addMessage(text, sender, isHtml = false) {
+            const box = document.getElementById('chat-box');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            
+            if (isHtml) {
+                div.innerHTML = text;
+            } else {
+                div.textContent = text;
+            }
+            
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+        
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
 </body>
 </html>

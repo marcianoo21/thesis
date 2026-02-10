@@ -1,7 +1,7 @@
 import json
 import time
 from typing import Optional, List, Dict
-from embedding_model import ModelMeanPooling
+from src import ModelMeanPooling
 
 # python -m embedding_creation.create_embeddings_cls_words_v2
 

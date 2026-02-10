@@ -1,7 +1,7 @@
 import json
 import time
 from typing import Optional, List, Dict
-from embedding_model import ModelMeanPooling
+from src import ModelMeanPooling
 # python -m embedding_creation.create_embeddings_cls_stella
 INPUT_FILE = "output_files/lodz_restaurants_cafes_emb_input.jsonl"
 OUTPUT_FILE = "output_files/lodz_restaurants_cafes_embeddings_cls_stella.jsonl"

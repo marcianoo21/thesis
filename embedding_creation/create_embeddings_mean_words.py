@@ -1,7 +1,7 @@
 import json
 import time
 from typing import Optional, List, Dict
-from embedding_model import ModelMeanPooling
+from src import ModelMeanPooling
 # python -m embedding_creation.create_embeddings_mean_words
 INPUT_FILE = "output_files/context_from_filtered_keywords.jsonl"
 OUTPUT_FILE = "output_files/lodz_restaurants_cafes_embeddings_mean_words.jsonl"

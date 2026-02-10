@@ -47,7 +47,7 @@ Znalezione restauracje:
 1. **The Brick Coffee Factory**
    Typ: kawa
    Adres: ul. Piotrkowska 123
-   Ocena: 4.6⭐ (314 opinii)
+   Ocena: 4.6 (314 opinii)
    Dopasowanie: 0.856
 
 ...
